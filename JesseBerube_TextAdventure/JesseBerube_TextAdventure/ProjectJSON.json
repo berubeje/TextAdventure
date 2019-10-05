@@ -1,0 +1,42 @@
+{
+    "PlayerInfo": {
+        "Location": 1,
+        "Items": [
+            {}
+        ],
+        "Has Friend": false
+    },
+    
+    
+    "Location Information": [
+        {
+            "Location Id": 1,
+            "Description text": "Blah Blah Blah",
+            "Valid Directions": [
+                {
+                    "Direction": "north",
+                    "Location Id": 2,
+                    "Condition": "Opened Front Door",
+                    "On Condition Failure": "The front door is closed..."
+                }
+            ],
+            "Pickup Items": [
+                {}
+            ],
+            "Interactable Objects": [
+                {
+                    "Object Id": 1,
+                    "Object": "Closed Front Door",
+                    "Added Description": "The front door is closed.",
+                    "Bool": true
+                },
+                {
+                    "Object Id": 1,
+                    "Object": "Opened Front Door",
+                    "Added Description": "The front door is opened.",
+                    "Bool": false
+                }
+            ]
+        }
+    ]
+}
