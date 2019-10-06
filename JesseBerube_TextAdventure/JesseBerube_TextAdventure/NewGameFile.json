@@ -1,16 +1,23 @@
 {
     "PlayerInfo": {
         "Location": 1,
-        "Items": [
-            {}
-        ],
         "Has Friend": false
     },
-    
-    
+
+
+    "Items":[
+      {
+        "Name": "Note",
+        "Location": 0,
+        "Info": "There is the note you left here. "
+      }
+      ],
+
+
     "Location Information": [
         {
             "Location Id": 1,
+	    "Location Name": "Front Enterance",
             "Description text": "Blah Blah Blah",
             "Valid Directions": [
                 {
@@ -19,9 +26,6 @@
                     "Condition": "Opened Front Door",
                     "On Condition Failure": "The front door is closed..."
                 }
-            ],
-            "Pickup Items": [
-                {}
             ],
             "Interactable Objects": [
                 {
