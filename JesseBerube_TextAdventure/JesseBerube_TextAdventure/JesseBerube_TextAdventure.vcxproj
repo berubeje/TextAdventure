@@ -154,11 +154,13 @@
     <ClCompile Include="CommandManager.cpp" />
     <ClCompile Include="Direction.cpp" />
     <ClCompile Include="FileManager.cpp" />
-    <ClCompile Include="Items.cpp" />
+    <ClCompile Include="Item.cpp" />
+    <ClCompile Include="ItemManager.cpp" />
     <ClCompile Include="json.cpp" />
     <ClCompile Include="Location.cpp" />
     <ClCompile Include="main.cpp" />
     <ClCompile Include="LocationManager.cpp" />
+    <ClCompile Include="Object.cpp" />
     <ClCompile Include="Player.cpp" />
     <ClCompile Include="TextGame.cpp" />
   </ItemGroup>
@@ -166,10 +168,12 @@
     <ClInclude Include="CommandManager.h" />
     <ClInclude Include="Direction.h" />
     <ClInclude Include="FileManager.h" />
-    <ClInclude Include="Items.h" />
+    <ClInclude Include="Item.h" />
+    <ClInclude Include="ItemManager.h" />
     <ClInclude Include="json.hpp" />
     <ClInclude Include="Location.h" />
     <ClInclude Include="LocationManager.h" />
+    <ClInclude Include="Object.h" />
     <ClInclude Include="Player.h" />
     <ClInclude Include="TextGame.h" />
   </ItemGroup>

@@ -3,42 +3,32 @@
         "Location": 1,
         "Has Friend": false
     },
-
-
-    "Items":[
-      {
-        "Name": "Note",
-        "Location": 0,
-        "Info": "There is the note you left here. "
-      }
-      ],
-
-
+    "Items": [
+        {
+            "Item": "NOTE",
+            "Location": 0,
+            "Info": "There is the note you left here. "
+        }
+    ],
     "Locations": [
         {
             "Location Id": 1,
-	        "Location Name": "Front Enterance",
+            "Location Name": "Front Enterance",
             "Description": "Blah Blah Blah",
             "Directions": [
                 {
-                    "Direction": "north",
+                    "Direction": "NORTH",
                     "Location Id": 2,
-                    "Condition": "Opened Front Door",
+                    "Condition": "The front door is opened",
                     "Condition Failure": "The front door is closed..."
                 }
             ],
             "Objects": [
                 {
-                    "Object Id": 1,
-                    "Object": "Closed Front Door",
-                    "Added Description": "The front door is closed.",
-                    "Bool": true
-                },
-                {
-                    "Object Id": 1,
-                    "Object": "Opened Front Door",
-                    "Added Description": "The front door is opened.",
-                    "Bool": false
+                    "Object": "DOOR",
+                    "State": false,
+                    "If True": "The front door is opened",
+                    "If False": "The front door is closed"
                 }
             ]
         }

@@ -31,7 +31,7 @@ void FileManager::LoadFile(bool newGame)
 		_ASSERT_EXPR(doc.hasKey("Locations"), "Locations Node Not Found. Time to crash!");
 
 		locMgr->CreateLocationsFromJSON(doc["Locations"]);
-		
+		player->SetupPlayer(doc["PlayerInfo"]);
 	}
 	else
 	{
