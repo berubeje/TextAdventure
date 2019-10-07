@@ -1,11 +1,20 @@
 #pragma once
-#include <vector>
 #include <string>
+#include <vector>
+#include "json.hpp"
+#include "Direction.h"
 class Location
 {
 private:
-	int id;
-	std::string name;
+	int locationID;
+	std::string locationName;
 	std::string description;
+	std::vector<Direction*> directions;
+
+public:
+	Location(int id, std::string name, std::string desc);
+	~Location();
+	void CreateDirectionsFromJSON(json::JSON& node);
+	void AddDirection(Direction* dir);
 };
 

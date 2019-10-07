@@ -14,20 +14,20 @@
       ],
 
 
-    "Location Information": [
+    "Locations": [
         {
             "Location Id": 1,
-	    "Location Name": "Front Enterance",
-            "Description text": "Blah Blah Blah",
-            "Valid Directions": [
+	        "Location Name": "Front Enterance",
+            "Description": "Blah Blah Blah",
+            "Directions": [
                 {
                     "Direction": "north",
                     "Location Id": 2,
                     "Condition": "Opened Front Door",
-                    "On Condition Failure": "The front door is closed..."
+                    "Condition Failure": "The front door is closed..."
                 }
             ],
-            "Interactable Objects": [
+            "Objects": [
                 {
                     "Object Id": 1,
                     "Object": "Closed Front Door",

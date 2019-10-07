@@ -152,7 +152,9 @@
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClCompile Include="CommandManager.cpp" />
+    <ClCompile Include="Direction.cpp" />
     <ClCompile Include="FileManager.cpp" />
+    <ClCompile Include="Items.cpp" />
     <ClCompile Include="json.cpp" />
     <ClCompile Include="Location.cpp" />
     <ClCompile Include="main.cpp" />
@@ -162,7 +164,9 @@
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="CommandManager.h" />
+    <ClInclude Include="Direction.h" />
     <ClInclude Include="FileManager.h" />
+    <ClInclude Include="Items.h" />
     <ClInclude Include="json.hpp" />
     <ClInclude Include="Location.h" />
     <ClInclude Include="LocationManager.h" />
