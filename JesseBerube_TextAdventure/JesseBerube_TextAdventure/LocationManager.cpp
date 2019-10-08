@@ -20,11 +20,6 @@ void LocationManager::CreateLocationsFromJSON(json::JSON& node)
 		Location* newLoc = new Location(loc["Location Id"].ToInt(), loc["Location Name"].ToString(),loc["Description"].ToString());
 	
 		newLoc->CreateDirectionsFromJSON(loc["Directions"]);
-		
-		if (loc.hasKey("Objects"))
-		{
-			newLoc->CreateObjectsFromJSON(loc["Objects"]);
-		}
 
 		AddLocation(newLoc);
 

@@ -1,9 +1,12 @@
 #pragma once
-#include <vector>
+#include <map>
 #include <string>
+
+class Interactable;
+
 class CommandManager
 {
 private:
-	std::multimap<std::string, std::string> commandMap;
+	std::multimap<std::string, Interactable*> commandMap;
 };
 

@@ -13,7 +13,7 @@ private:
 	ItemManager* itemMgr;
 	CommandManager* cmdMgr;
 public:
-	FileManager(LocationManager* loc, Player* play, ItemManager* item, CommandManager* cmd);
+	FileManager(LocationManager* loc, Player* play, CommandManager* cmd);
 	~FileManager();
 	void LoadFile(bool loadSave);
 	void SaveFile();

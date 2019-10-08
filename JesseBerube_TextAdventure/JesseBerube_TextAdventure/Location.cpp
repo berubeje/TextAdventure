@@ -24,21 +24,7 @@ void Location::CreateDirectionsFromJSON(json::JSON& node)
 	}
 }
 
-void Location::CreateObjectsFromJSON(json::JSON& node)
-{
-	for (auto obj:node.ArrayRange())
-	{
-		Object* newObj = new Object(obj["Object"].ToString(), obj["State"].ToBool(), obj["If True"].ToString(), obj["If False"].ToString());
-		AddObject(newObj);
-	}
-}
-
 void Location::AddDirection(Direction* dir)
 {
 	directions.push_back(dir);
-}
-
-void Location::AddObject(Object* obj)
-{
-	objects.push_back(obj);
 }
