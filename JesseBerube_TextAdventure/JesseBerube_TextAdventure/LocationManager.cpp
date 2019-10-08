@@ -1,5 +1,5 @@
 #include "LocationManager.h"
-
+#include "Location.h"
 
 LocationManager::LocationManager()
 {

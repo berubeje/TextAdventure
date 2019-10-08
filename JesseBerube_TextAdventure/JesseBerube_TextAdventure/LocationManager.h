@@ -1,7 +1,9 @@
 #pragma once
-#include "Location.h"
 #include <vector>
 #include "json.hpp"
+
+class Location;
+
 class LocationManager
 {
 private:

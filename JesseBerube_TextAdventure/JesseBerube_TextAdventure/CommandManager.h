@@ -4,7 +4,6 @@
 class CommandManager
 {
 private:
-	std::vector<std::string> verbs;
-	std::vector<std::string> nouns;
+	std::multimap<std::string, std::string> commandMap;
 };
 

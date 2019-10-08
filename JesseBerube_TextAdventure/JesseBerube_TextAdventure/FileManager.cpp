@@ -1,15 +1,19 @@
 #include "FileManager.h"
 #include "json.hpp"
+#include "Player.h"
+#include "CommandManager.h"
+#include "LocationManager.h"
+#include "ItemManager.h"
+
 
 #include <fstream>
 
 
-FileManager::FileManager(LocationManager* loc, Player* play, CommandManager* cmd)
+FileManager::FileManager(LocationManager* loc, Player* play,ItemManager* item, CommandManager* cmd)
 {
 	locMgr = loc;
 	player = play;
 	cmdMgr = cmd;
-
 }
 
 FileManager::~FileManager()

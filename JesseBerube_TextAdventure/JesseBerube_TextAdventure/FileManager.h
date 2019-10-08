@@ -1,15 +1,19 @@
 #pragma once
-#include "Player.h"
-#include "CommandManager.h"
-#include "LocationManager.h"
+
+class Player;
+class CommandManager;
+class LocationManager;
+class ItemManager;
+
 class FileManager
 {
 private:
 	LocationManager* locMgr;
 	Player* player;
+	ItemManager* itemMgr;
 	CommandManager* cmdMgr;
 public:
-	FileManager(LocationManager* loc, Player* play, CommandManager* cmd);
+	FileManager(LocationManager* loc, Player* play, ItemManager* item, CommandManager* cmd);
 	~FileManager();
 	void LoadFile(bool loadSave);
 	void SaveFile();
