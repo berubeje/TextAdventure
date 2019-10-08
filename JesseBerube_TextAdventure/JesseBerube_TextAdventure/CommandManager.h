@@ -8,5 +8,10 @@ class CommandManager
 {
 private:
 	std::multimap<std::string, Interactable*> commandMap;
+
+public:
+	CommandManager();
+	~CommandManager();
+	void CreateVerbs();
 };
 

@@ -1,6 +1,6 @@
 #include "Interactable.h"
 
-Interactable::Interactable()
+Interactable::Interactable(int loc, std::string comName)
 {
 }
 

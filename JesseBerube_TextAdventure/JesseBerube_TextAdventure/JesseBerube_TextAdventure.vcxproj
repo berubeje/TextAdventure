@@ -153,6 +153,7 @@
   <ItemGroup>
     <ClCompile Include="CommandManager.cpp" />
     <ClCompile Include="Direction.cpp" />
+    <ClCompile Include="Door.cpp" />
     <ClCompile Include="FileManager.cpp" />
     <ClCompile Include="Interactable.cpp" />
     <ClCompile Include="InteractableManager.cpp" />
@@ -161,13 +162,13 @@
     <ClCompile Include="Location.cpp" />
     <ClCompile Include="main.cpp" />
     <ClCompile Include="LocationManager.cpp" />
-    <ClCompile Include="Object.cpp" />
     <ClCompile Include="Player.cpp" />
     <ClCompile Include="TextGame.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="CommandManager.h" />
     <ClInclude Include="Direction.h" />
+    <ClInclude Include="Door.h" />
     <ClInclude Include="FileManager.h" />
     <ClInclude Include="Interactable.h" />
     <ClInclude Include="InteractableManager.h" />
@@ -175,7 +176,6 @@
     <ClInclude Include="json.hpp" />
     <ClInclude Include="Location.h" />
     <ClInclude Include="LocationManager.h" />
-    <ClInclude Include="Object.h" />
     <ClInclude Include="Player.h" />
     <ClInclude Include="TextGame.h" />
   </ItemGroup>
