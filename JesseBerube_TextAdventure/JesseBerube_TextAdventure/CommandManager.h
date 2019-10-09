@@ -12,6 +12,6 @@ private:
 public:
 	CommandManager();
 	~CommandManager();
-	void CreateVerbs();
+	void CreateCommands();
 };
 

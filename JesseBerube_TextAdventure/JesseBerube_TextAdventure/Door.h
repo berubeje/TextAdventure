@@ -9,9 +9,8 @@ private:
 	std::string ifClosedDesc;
 
 public:
-	Door(int loc, bool state ,std::string open, std::string close);
+	Door(int loc, std::string name, bool state ,std::string open, std::string close);
 	virtual ~Door();
-	virtual void AddVerbs();
     void Open();
 	void Close();
 };

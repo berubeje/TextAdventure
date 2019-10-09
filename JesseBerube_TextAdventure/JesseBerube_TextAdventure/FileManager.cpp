@@ -8,11 +8,10 @@
 #include <fstream>
 
 
-FileManager::FileManager(LocationManager* loc, Player* play, CommandManager* cmd)
+FileManager::FileManager(LocationManager* loc,InteractableManager* inter ,Player* play, CommandManager* cmd)
+	:locMgr(loc), interMgr(inter), player(play), cmdMgr(cmd)
 {
-	locMgr = loc;
-	player = play;
-	cmdMgr = cmd;
+	
 }
 
 FileManager::~FileManager()

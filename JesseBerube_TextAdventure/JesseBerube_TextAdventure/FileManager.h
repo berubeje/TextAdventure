@@ -3,17 +3,18 @@
 class Player;
 class CommandManager;
 class LocationManager;
-class ItemManager;
+class InteractableManager;
 
 class FileManager
 {
 private:
 	LocationManager* locMgr;
+	InteractableManager* interMgr;
 	Player* player;
-	ItemManager* itemMgr;
 	CommandManager* cmdMgr;
+
 public:
-	FileManager(LocationManager* loc, Player* play, CommandManager* cmd);
+	FileManager(LocationManager* loc, InteractableManager* inter,Player* play, CommandManager* cmd);
 	~FileManager();
 	void LoadFile(bool loadSave);
 	void SaveFile();

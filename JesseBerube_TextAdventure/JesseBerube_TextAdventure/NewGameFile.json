@@ -5,9 +5,21 @@
     },
     "Items": [
         {
-            "Item": "NOTE",
+            "Class": "Note",
+            "Command Noun": "NOTE",
             "Location": 0,
-            "Info": "There is the note you left here. "
+            "Info": "There is the note you left here.",
+            "Writen On Note":"The writing the on the note"
+        }
+    ],
+    "Objects": [
+        {
+            "Class": "Door",
+            "Command Noun": "DOOR",
+            "Location": 1,
+            "Open": false,
+            "Open Description": "The front door is currently open",
+            "Closed Description": "The front door is currently closed"
         }
     ],
     "Locations": [
@@ -19,16 +31,8 @@
                 {
                     "Direction": "NORTH",
                     "Location Id": 2,
-                    "Condition": "The front door is opened",
+                    "Condition Class": "Door",
                     "Condition Failure": "The front door is closed..."
-                }
-            ],
-            "Objects": [
-                {
-                    "Object": "DOOR",
-                    "State": false,
-                    "If True": "The front door is opened",
-                    "If False": "The front door is closed"
                 }
             ]
         }

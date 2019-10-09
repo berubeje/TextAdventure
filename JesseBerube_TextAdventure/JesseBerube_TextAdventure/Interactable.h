@@ -11,7 +11,7 @@ protected:
 public:
 	Interactable(int loc, std::string comName);
 	virtual ~Interactable();
-	virtual void AddVerbs() = 0;
+	//virtual void AddVerbs() = 0;
 	virtual int GetLocation() = 0;
 	virtual std::string GetCommandName() = 0;
 };
