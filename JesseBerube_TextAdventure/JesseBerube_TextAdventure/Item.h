@@ -8,10 +8,8 @@ protected:
 	std::string worldInfo;
 
 public:
-	Item();
+	Item(int loc, std::string name, std::string info);
 	virtual ~Item();
-	virtual void AddVerb();
-	virtual int  GetLocation() { return locationId; };
 	//a location id of 0 is considered the player
 	virtual void Pickup() { locationId = 0; };
 	virtual void Drop(int location) { locationId = location; };

@@ -9,7 +9,7 @@
             "Command Noun": "NOTE",
             "Location": 0,
             "Info": "There is the note you left here.",
-            "Writen On Note":"The writing the on the note"
+            "Written On Note":"The writing the on the note"
         }
     ],
     "Objects": [
@@ -17,6 +17,7 @@
             "Class": "Door",
             "Command Noun": "DOOR",
             "Location": 1,
+            "Blocking Direction": "NORTH",
             "Open": false,
             "Open Description": "The front door is currently open",
             "Closed Description": "The front door is currently closed"
@@ -25,13 +26,12 @@
     "Locations": [
         {
             "Location Id": 1,
-            "Location Name": "Front Enterance",
+            "Location Name": "Front Entrance",
             "Description": "Blah Blah Blah",
             "Directions": [
                 {
                     "Direction": "NORTH",
                     "Location Id": 2,
-                    "Condition Class": "Door",
                     "Condition Failure": "The front door is closed..."
                 }
             ]

@@ -14,7 +14,7 @@ private:
 	CommandManager* cmdMgr;
 
 public:
-	FileManager(LocationManager* loc, InteractableManager* inter,Player* play, CommandManager* cmd);
+	FileManager(LocationManager* loc, InteractableManager* inter, Player* play, CommandManager* cmd);
 	~FileManager();
 	void LoadFile(bool loadSave);
 	void SaveFile();

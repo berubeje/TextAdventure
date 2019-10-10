@@ -19,7 +19,7 @@ void Location::CreateDirectionsFromJSON(json::JSON& node)
 {
 	for (auto dir : node.ArrayRange())
 	{
-		Direction* newDir = new Direction(dir["Location Id"].ToInt(), dir["Direction"].ToString(), dir["Condition"].ToString(), dir["Condition Failure"].ToString());
+		Direction* newDir = new Direction(dir["Location Id"].ToInt(), dir["Direction"].ToString(), dir["Condition Failure"].ToString());
 		AddDirection(newDir);
 	}
 }

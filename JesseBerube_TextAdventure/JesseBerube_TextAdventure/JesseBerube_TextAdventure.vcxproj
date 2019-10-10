@@ -162,6 +162,7 @@
     <ClCompile Include="Location.cpp" />
     <ClCompile Include="main.cpp" />
     <ClCompile Include="LocationManager.cpp" />
+    <ClCompile Include="Note.cpp" />
     <ClCompile Include="Player.cpp" />
     <ClCompile Include="TextGame.cpp" />
   </ItemGroup>
@@ -176,6 +177,7 @@
     <ClInclude Include="json.hpp" />
     <ClInclude Include="Location.h" />
     <ClInclude Include="LocationManager.h" />
+    <ClInclude Include="Note.h" />
     <ClInclude Include="Player.h" />
     <ClInclude Include="TextGame.h" />
   </ItemGroup>

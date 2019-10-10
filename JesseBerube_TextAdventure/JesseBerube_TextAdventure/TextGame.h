@@ -2,6 +2,7 @@
 #include <iostream>
 #include "FileManager.h"
 #include "LocationManager.h"
+#include "InteractableManager.h"
 #include "CommandManager.h"
 #include "Player.h"
 
@@ -10,6 +11,7 @@ class TextGame
 private:
 	FileManager* fileMgr;
 	LocationManager* locMgr;
+	InteractableManager* interMgr;
 	CommandManager* cmdMgr;
 	Player* player;
 	

@@ -4,8 +4,9 @@ TextGame::TextGame()
 {
 	cmdMgr = new CommandManager();
 	locMgr = new LocationManager();
+	interMgr = new InteractableManager();
 	player = new Player();
-	fileMgr = new FileManager(locMgr, player, cmdMgr);
+	fileMgr = new FileManager(locMgr, interMgr, player, cmdMgr);
 }
 
 TextGame::~TextGame()

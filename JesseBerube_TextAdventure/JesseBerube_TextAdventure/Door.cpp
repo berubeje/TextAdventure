@@ -1,8 +1,8 @@
 #include "Door.h"
 #include <iostream>
 
-Door::Door(int loc, std::string name, bool state, std::string open, std::string close)
-	:Interactable(loc, name), opened(state), ifOpenDesc(open), ifClosedDesc(close)
+Door::Door(int loc, std::string name, std::string block, bool state, std::string open, std::string close)
+	:Interactable(loc, name), blockingDirection(block),  opened(state), ifOpenDesc(open), ifClosedDesc(close)
 {
 	validVerbs.push_back("OPEN");
 	validVerbs.push_back("CLOSE");
