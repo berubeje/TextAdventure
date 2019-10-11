@@ -12,10 +12,6 @@ Door::~Door()
 {
 }
 
-//void Door::AddVerbs()
-//{
-//}
-
 void Door::Open()
 {
 	if (opened == false)

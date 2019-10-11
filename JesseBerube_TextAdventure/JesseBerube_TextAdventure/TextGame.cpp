@@ -13,6 +13,7 @@ TextGame::~TextGame()
 {
 	delete fileMgr;
 	delete player;
+	delete interMgr;
 	delete locMgr;
 	delete cmdMgr;
 }
@@ -56,11 +57,17 @@ bool TextGame::Setup()
 
 	if (response == 'N')
 	{
-		fileMgr->LoadFile(true);
+		if (fileMgr->LoadFile(true) == false)
+		{
+			return false;
+		}
 	}
 	else
 	{
-		fileMgr->LoadFile(false);
+		if (fileMgr->LoadFile(false) == false)
+		{
+			return false;
+		}
 	}
 
 	return true;

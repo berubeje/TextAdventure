@@ -11,7 +11,8 @@ protected:
 public:
 	Interactable(int loc, std::string comName);
 	virtual ~Interactable();
-	virtual int GetLocation() { return locationId; }
-	virtual std::string GetCommandName() { return commandName; }
+	const virtual int GetLocation() { return locationId; }
+    virtual std::vector<std::string>* GetValidVerbs() { return &validVerbs; }
+	const virtual std::string GetCommandName() { return commandName; }
 };
 

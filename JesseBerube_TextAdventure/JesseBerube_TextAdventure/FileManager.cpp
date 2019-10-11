@@ -4,7 +4,7 @@
 #include "CommandManager.h"
 #include "InteractableManager.h"
 #include "LocationManager.h"
-
+#include <exception>
 
 #include <fstream>
 
@@ -20,11 +20,21 @@ FileManager::~FileManager()
 
 }
 
-void FileManager::LoadFile(bool newGame)
+
+bool FileManager::LoadFile(bool newGame)
 {
+	std::string filePath;
 	if (newGame)
 	{
-		std::ifstream inputStream("NewGameFile.json");
+		filePath = "NewGameFile.json";
+	}
+	else
+	{
+
+	}
+
+	try {
+		std::ifstream inputStream(filePath);
 		std::string str((std::istreambuf_iterator<char>(inputStream)), std::istreambuf_iterator<char>());
 
 		json::JSON doc = json::JSON::Load(str);
@@ -37,10 +47,15 @@ void FileManager::LoadFile(bool newGame)
 		locMgr->CreateLocationsFromJSON(doc["Locations"]);
 		interMgr->CreateInteractablesFromJSON(doc["Items"], doc["Objects"]);
 		player->SetupPlayer(doc["PlayerInfo"]);
-	}
-	else
-	{
 
+		cmdMgr->CreateCommands(interMgr->GetInteractableArray());
+
+		return true;
+	}
+	catch (std::exception e)
+	{
+		std::cout << "Issue reading file! Check file" << std::endl;
+		return false;
 	}
 }
 

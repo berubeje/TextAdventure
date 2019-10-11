@@ -7,10 +7,13 @@ class InteractableManager
 private:
 	std::vector<Interactable*> interactables;
 
+
 public:
 	InteractableManager();
 	~InteractableManager();
-	void CreateInteractablesFromJSON(json::JSON& items, json::JSON& other);
+    void CreateInteractablesFromJSON(json::JSON& items, json::JSON& other);
 	void AddInteractableObject(Interactable*);
+    std::vector<Interactable*>* GetInteractableArray() { return &interactables; };
+
 };
 

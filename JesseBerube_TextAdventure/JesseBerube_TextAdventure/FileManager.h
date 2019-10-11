@@ -16,7 +16,7 @@ private:
 public:
 	FileManager(LocationManager* loc, InteractableManager* inter, Player* play, CommandManager* cmd);
 	~FileManager();
-	void LoadFile(bool loadSave);
+	bool LoadFile(bool loadSave);
 	void SaveFile();
 };
 
