@@ -9,11 +9,12 @@ int main()
 
 	if (success)
 	{
-
+		game->StartGame();
 	}
 	else
 	{
-
+		std::cout << "Something when wrong while setting up. Aborting application." << std::endl;
+		return -1;
 	}
 
 	delete game;

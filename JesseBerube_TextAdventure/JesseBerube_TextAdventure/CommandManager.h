@@ -15,5 +15,6 @@ public:
 	CommandManager();
 	~CommandManager();
 	void CreateCommands(std::vector<Interactable*>* interVec);
+	bool ValidateCommand(std::string com);
 };
 

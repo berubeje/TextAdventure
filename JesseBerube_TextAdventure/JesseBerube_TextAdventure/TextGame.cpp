@@ -1,5 +1,5 @@
 #include "TextGame.h"
-
+#include <algorithm>
 TextGame::TextGame()
 {
 	cmdMgr = new CommandManager();
@@ -66,19 +66,46 @@ bool TextGame::Setup()
 	{
 		if (fileMgr->LoadFile(false) == false)
 		{
+
 			return false;
 		}
 	}
-
-	return true;
 }
 
 void TextGame::StartGame()
 {
-
+	GameLoop();
 }
 
 void TextGame::GameLoop()
 {
+	std::string response;
+	std::getline(std::cin, response);
+	do
+	{	
+		try
+		{
 
+			std::getline(std::cin, response);
+			transform(response.begin(), response.end(), response.begin(), ::toupper);
+
+			if (response == "QUIT")
+			{
+				return;
+			}
+
+			if (cmdMgr->ValidateCommand(response) == true)
+			{
+				std::cout << "Command is valid" << std::endl;
+			}
+			else
+			{
+				std::cout << "Command is not valid" << std::endl;
+			}
+
+		}
+		catch (int e)
+		{
+		}
+	} while (true);
 }

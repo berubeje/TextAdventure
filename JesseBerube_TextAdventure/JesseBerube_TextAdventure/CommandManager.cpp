@@ -52,3 +52,41 @@ void CommandManager::CreateCommands(std::vector<Interactable*>* interVec)
 		}
 	}
 }
+
+bool CommandManager::ValidateCommand(std::string com)
+{
+	std::string verb;
+	for (auto c : com)
+	{
+		if (c == ' ')
+		{
+			break;
+		}
+		else
+		{
+			verb = verb + c;
+		}
+	}
+
+	com = com.substr(com.find_first_of(" \t")+1);
+
+	bool validCommmand = false;
+	
+	for (auto comMap : commands)
+	{
+		if (comMap.first == verb && comMap.second == com)
+		{
+			validCommmand = true;
+			break;
+		}
+	}
+
+	if (validCommmand == true)
+	{
+		return true;
+	}
+	else
+	{
+		return false;
+	}
+}
