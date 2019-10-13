@@ -47,3 +47,18 @@ void InteractableManager::AddInteractableObject(Interactable* inter)
 	interactables.push_back(inter);
 }
 
+std::string InteractableManager::GetInteractableDescriptions(int id)
+{
+	std::string finalString = "";
+
+	for (auto inter:interactables)
+	{
+		if (inter->GetLocation() == id)
+		{
+			finalString += inter->GetDescription() + "\n";
+		}
+	}
+
+	return finalString;
+}
+

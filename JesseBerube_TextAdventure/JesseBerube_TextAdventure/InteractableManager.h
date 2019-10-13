@@ -14,6 +14,7 @@ public:
     void CreateInteractablesFromJSON(json::JSON& items, json::JSON& other);
 	void AddInteractableObject(Interactable*);
     std::vector<Interactable*>* GetInteractableArray() { return &interactables; };
+	std::string GetInteractableDescriptions(int id);
 
 };
 

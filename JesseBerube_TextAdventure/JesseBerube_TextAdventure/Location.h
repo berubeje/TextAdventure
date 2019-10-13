@@ -18,5 +18,7 @@ public:
 	~Location();
 	void CreateDirectionsFromJSON(json::JSON& node);
 	void AddDirection(Direction* dir);
+	int GetLocationId() { return locationID;}
+	std::string GetLocationDescription() { return description; }
 };
 

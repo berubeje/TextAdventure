@@ -21,5 +21,6 @@ public:
 	bool Setup();
 	void StartGame();
 	void GameLoop();
+	void AdjustString(std::string& resp);
 };
 

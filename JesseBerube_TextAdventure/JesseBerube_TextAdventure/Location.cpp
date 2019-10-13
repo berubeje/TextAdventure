@@ -28,3 +28,4 @@ void Location::AddDirection(Direction* dir)
 {
 	directions.push_back(dir);
 }
+	

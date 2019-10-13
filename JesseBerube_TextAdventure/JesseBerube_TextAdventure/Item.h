@@ -14,5 +14,6 @@ public:
 	virtual void Pickup() { locationId = 0; };
 	virtual void Drop(int location) { locationId = location; };
 	virtual void UseItem() = 0;
+	virtual std::string GetDescription() { return worldInfo; }
 };
 

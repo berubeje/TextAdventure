@@ -14,5 +14,6 @@ public:
 	~LocationManager();
 	void CreateLocationsFromJSON(json::JSON& node);
 	void AddLocation(Location* loc);
+	Location* GetLocation(int id);
 };
 

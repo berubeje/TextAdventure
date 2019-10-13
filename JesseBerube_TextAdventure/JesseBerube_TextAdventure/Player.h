@@ -11,5 +11,6 @@ public:
 	void SetupPlayer(json::JSON& node);
 	void ChangeLocation(int loc);
 	void SetFriend(bool set);
+	int GetLocation() { return location; }
 };
 

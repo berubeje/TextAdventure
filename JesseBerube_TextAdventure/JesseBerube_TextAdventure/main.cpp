@@ -1,7 +1,9 @@
 
 #include <iostream>
 #include "TextGame.h"
+
 using namespace std;
+
 int main()
 {
 	TextGame* game = new TextGame();

@@ -10,5 +10,6 @@ public:
 	Note(int loc, std::string name, std::string info, std::string writing);
 	virtual ~Note();
 	virtual void UseItem();
+	//virtual std::string GetDescription() { return info; }
 };
 

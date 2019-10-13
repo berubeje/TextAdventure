@@ -30,3 +30,15 @@ void LocationManager::AddLocation(Location* loc)
 {
 	locations.push_back(loc);
 }
+
+Location* LocationManager::GetLocation(int id)
+{
+	for (auto loc : locations)
+	{
+		if (loc->GetLocationId() == id)
+		{
+			return loc;
+		}
+	}
+	return nullptr;
+}

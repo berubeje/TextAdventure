@@ -14,5 +14,6 @@ public:
 	const virtual int GetLocation() { return locationId; }
     virtual std::vector<std::string>* GetValidVerbs() { return &validVerbs; }
 	const virtual std::string GetCommandName() { return commandName; }
+	virtual std::string GetDescription() = 0;
 };
 

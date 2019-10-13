@@ -14,5 +14,6 @@ public:
 	virtual ~Door();
     void Open();
 	void Close();
+	virtual std::string GetDescription();
 };
 

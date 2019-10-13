@@ -37,3 +37,15 @@ void Door::Close()
 		std::cout << "The door is already closed." << std::endl;
 	}
 }
+
+std::string Door::GetDescription()
+{
+	if (opened == true)
+	{
+		return ifOpenDesc;
+	}
+	else
+	{
+		return ifClosedDesc;
+	}
+}
