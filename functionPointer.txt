@@ -1,0 +1,76 @@
+// FunctionPointersZombies.cpp : This file contains the 'main' function. Program execution begins and ends there.
+//
+
+#include <iostream>
+#include <string>
+#include <map>
+
+class Object
+{
+public:
+	virtual void initialize() 
+	{
+		std::cout << "Object Initialized" << std::endl;
+	};
+
+
+};
+
+class Zombie : public Object
+{
+public:
+	virtual void initialize()
+	{
+		Object::initialize();
+		std::cout << "Zombie Initialized" << std::endl;
+	};
+
+	static Object* create()
+	{
+		return new Zombie();
+	}
+};
+
+class Ghoul : public Object
+{
+public:
+	virtual void initialize()
+	{
+		Object::initialize();
+		std::cout << "Ghoul Initialized" << std::endl;
+	};
+
+	static Object* create()
+	{
+		return new Ghoul();
+	}
+};
+
+
+
+#include <iostream>
+#include <functional>
+
+int main()
+{
+	std::map<std::string, std::function<Object*()>> functionMap;
+
+	//std::function<Object* ()> zombiePtr = &Zombie::create;
+
+	functionMap.emplace("Zombie", std::function<Object*()>(Zombie::create));
+	functionMap.emplace("Ghoul", std::function<Object*()>(Ghoul::create));
+
+	std::string input = "";
+	for (int i = 0; i < 10; i++)
+	{
+		std::cout << "What class to string: ";
+		std::cin >> input;
+
+		Object* obj = functionMap[input]();
+		obj->initialize();
+	}
+
+
+
+}
+
