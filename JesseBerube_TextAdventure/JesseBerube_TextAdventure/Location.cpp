@@ -19,7 +19,7 @@ void Location::CreateDirectionsFromJSON(json::JSON& node)
 {
 	for (auto dir : node.ArrayRange())
 	{
-		Direction* newDir = new Direction(dir["Location Id"].ToInt(), dir["Direction"].ToString(), dir["Condition Failure"].ToString());
+		Direction* newDir = new Direction(dir["ToLocationId"].ToInt(), dir["CompassDirection"].ToString(), dir["ConditionFailure"].ToString());
 		AddDirection(newDir);
 	}
 }
@@ -27,5 +27,18 @@ void Location::CreateDirectionsFromJSON(json::JSON& node)
 void Location::AddDirection(Direction* dir)
 {
 	directions.push_back(dir);
+}
+
+Direction* Location::GetDirection(std::string dir)
+{
+	for (auto direct : directions)
+	{
+		if (direct->GetDirection() == dir)
+		{
+			return direct;
+		}
+	}
+
+	return nullptr;
 }
 	

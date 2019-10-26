@@ -1,9 +1,9 @@
 #pragma once
 #include <string>
-#include "Interactable.h"
+#include "Obstacle.h"
 //THIS IS NOT BEING USED LIKE A GAME ENGINE OBJECT
 
-class Object:public Interactable
+class Object:public Obstacle
 {
 public:
 

@@ -1,53 +1,57 @@
 #include "InteractableManager.h"
 #include "Door.h"
 #include "Note.h"
+#include "Enemy.h"
+#include "Key.h"
+#include "Weapon.h"
+#include "Barrier.h"
+#include <functional>
+#include <map>
 
-InteractableManager::InteractableManager()
-{
-}
-
-InteractableManager::~InteractableManager()
-{
-	for (auto inter: interactables )
-	{
-		delete inter;
-	}
-}
 
 void InteractableManager::CreateInteractablesFromJSON(json::JSON& items, json::JSON& object)
 {
+	std::map < std::string, std::function<Obstacle* ()>> creationMap;
+
+	creationMap.emplace("Door", std::function<Obstacle * ()>(Door::Create));
+	creationMap.emplace("Enemy", std::function<Obstacle * ()>(Enemy::Create));
+	creationMap.emplace("Barrier", std::function<Obstacle * ()>(Barrier::Create));
+	creationMap.emplace("Note", std::function<Obstacle * ()>(Note::Create));
+	creationMap.emplace("Key", std::function<Obstacle * ()>(Key::Create));
+	creationMap.emplace("Weapon", std::function<Obstacle * ()>(Weapon::Create));
+
 
 	for (auto obj : object.ArrayRange())
 	{
-		Interactable* newObj = nullptr;
-		if (obj["Class"].ToString() == "Door")
-		{
-			newObj = new Door(obj["Location"].ToInt(),obj["Command Noun"].ToString(), obj["Blocking Direction"].ToString(), obj["Open"].ToBool(), obj["Open Description"].ToString(), obj["Closed Description"].ToString());
-			
-			AddInteractableObject(newObj);
-		}
+		Obstacle* newObj = nullptr;
+
+		newObj = creationMap[obj["ClassName"].ToString()]();
+		newObj->Initialize(obj);
+		AddInteractableObject(newObj);
+
 	}
 
 	for (auto item : items.ArrayRange())
 	{
-		Interactable* newItem = nullptr;
+		Obstacle* newItem = nullptr;
 
-		if (item["Class"].ToString() == "Note")
-		{
-			newItem = new Note(item["Location"].ToInt(), item["Command Noun"].ToString(), item["Info"].ToString(), item["Written On Note"].ToString());
 
-			AddInteractableObject(newItem);
+		newItem = creationMap[item["ClassName"].ToString()]();
+		newItem->Initialize(item);
+		AddInteractableObject(newItem);
 
-		}
+
 	}
 }
 
-void InteractableManager::AddInteractableObject(Interactable* inter)
+void InteractableManager::AddInteractableObject(Obstacle* inter)
 {
 	interactables.push_back(inter);
 }
 
-std::string InteractableManager::GetInteractableDescriptions(int id)
+
+
+std::string InteractableManager::GetInteractableDescriptions(int& id)
 {
 	std::string finalString = "";
 
@@ -60,5 +64,19 @@ std::string InteractableManager::GetInteractableDescriptions(int id)
 	}
 
 	return finalString;
+}
+
+std::list<Obstacle*> InteractableManager::GetInteractablesByLocationId(int& id)
+{
+	std::list<Obstacle*> newList;
+
+	for (auto inter : interactables)
+	{
+		if (inter->GetLocation() == id)
+		{
+			newList.push_back(inter);
+		}
+	}
+	return newList;
 }
 

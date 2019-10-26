@@ -1,51 +1,82 @@
 #include "Door.h"
 #include <iostream>
 
-Door::Door(int loc, std::string name, std::string block, bool state, std::string open, std::string close)
-	:Interactable(loc, name), blockingDirection(block),  opened(state), ifOpenDesc(open), ifClosedDesc(close)
+Door::Door()
 {
-	validVerbs.push_back("OPEN");
-	validVerbs.push_back("CLOSE");
 }
+
+//Door::Door(int loc, std::string name, std::string noun, std::string block, bool state, std::string open, std::string close, bool locked, bool puzzle)
+//	:Obstacle(loc, name, noun), blockingDirection(block),  open(state), openDescription(open), closedDescription(close), isLocked(locked), isPuzzle(puzzle)
+//{
+//
+//	validVerbs.push_back("OPEN");
+//	validVerbs.push_back("CLOSE");
+//}
 
 Door::~Door()
 {
 }
 
-void Door::Open()
+std::string Door::GetDescription(int select)
 {
-	if (opened == false)
+	if (select == 1)
 	{
-		opened = true;
-		std::cout << "The door has been opened." << std::endl;
-	}
-	else
-	{
-		std::cout << "The door is already opened." << std::endl;
+		if (open == true)
+		{
+			return openDescription;
+		}
+		else
+		{
+			return closedDescription;
+		}
 	}
 }
 
-void Door::Close()
+void Door::Interact(std::string& verb)
 {
-	if (opened == true)
+	if (verb == "OPEN")
 	{
-		opened = false;
-		std::cout << "The door has been closed." << std::endl;
+		if (open == false)
+		{
+			open = true;
+			std::cout << "The " + obstacleName + " has been opened." << std::endl;
+		}
+		else
+		{
+			std::cout << "The " + obstacleName + " is already open." << std::endl;
+		}
 	}
-	else
+	else if (verb == "CLOSED")
 	{
-		std::cout << "The door is already closed." << std::endl;
+		if (open == true)
+		{
+			open = false;
+			std::cout << "The " + obstacleName + " has been closed." << std::endl;
+		}
+		else
+		{
+			std::cout << "The " + obstacleName + " is already closed." << std::endl;
+		}
 	}
 }
 
-std::string Door::GetDescription()
+void Door::Initialize(json::JSON& node)
 {
-	if (opened == true)
-	{
-		return ifOpenDesc;
-	}
-	else
-	{
-		return ifClosedDesc;
-	}
+	//Interactables
+	obstacleName = node["Name"].ToString();
+	locationId = node["LocationId"].ToInt();
+	commandNoun = node["CommandNoun"].ToString();
+	classType = node["ClassName"].ToString();
+
+
+	//Door
+	blockingDirection = node["BlockingDirection"].ToString();
+	open = node["Open"].ToBool();
+	openDescription = node["OpenDescription"].ToString();
+	closedDescription = node["ClosedDescription"].ToString();
+	isLocked = node["IsLocked"].ToBool();
+	isPuzzle = node["IsPuzzle"].ToBool();
+
 }
+
+

@@ -7,9 +7,13 @@ private:
 	std::string writtenOnNote;
 
 public:
-	Note(int loc, std::string name, std::string info, std::string writing);
+	Note();
+	//Note(int loc, std::string name, std::string noun ,std::string info, std::string writing);
 	virtual ~Note();
 	virtual void UseItem();
-	//virtual std::string GetDescription() { return info; }
+
+	virtual void Initialize(json::JSON& node);
+
+	static Item* Create() { return new Note(); }
 };
 

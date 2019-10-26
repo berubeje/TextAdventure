@@ -2,23 +2,13 @@
 #include "json.hpp"
 #include "Player.h"
 #include "CommandManager.h"
-#include "InteractableManager.h"
+#include "ObstacleAndItemManager.h"
 #include "LocationManager.h"
-#include <exception>
+#include "Friend.h"
 
+#include <exception>
 #include <fstream>
 
-
-FileManager::FileManager(LocationManager* loc, InteractableManager* inter ,Player* play, CommandManager* cmd)
-	:locMgr(loc), interMgr(inter), player(play), cmdMgr(cmd)
-{
-	
-}
-
-FileManager::~FileManager()
-{
-
-}
 
 
 bool FileManager::LoadFile(bool newGame)
@@ -44,11 +34,16 @@ bool FileManager::LoadFile(bool newGame)
 		_ASSERT_EXPR(doc.hasKey("Objects"), "Objects Node Not Found. Time to crash!");
 		_ASSERT_EXPR(doc.hasKey("Locations"), "Locations Node Not Found. Time to crash!");
 
-		locMgr->CreateLocationsFromJSON(doc["Locations"]);
-		interMgr->CreateInteractablesFromJSON(doc["Items"], doc["Objects"]);
-		player->SetupPlayer(doc["PlayerInfo"]);
+		LocationManager::Instance().CreateLocationsFromJSON(doc["Locations"]);
+		ObstacleAndItemManager::Instance().CreateInteractablesFromJSON(doc["Items"], doc["Objects"]);
+		Player::Instance().SetupPlayer(doc["PlayerInfo"]);
+		Player::Instance().SetupInventory();
 
-		cmdMgr->CreateCommands(interMgr->GetInteractableArray());
+		json::JSON friendNode = doc["Friend"];
+		Friend::SetFriendLocation(friendNode["FriendLocation"].ToInt());
+
+		CommandManager::Instance().CreateCommands(ObstacleAndItemManager::Instance().GetObstacleArray(),ObstacleAndItemManager::Instance().GetItemArray());
+		CommandManager::Instance().UpdateInteractablesInAreaList(Player::Instance().GetLocation());
 
 		return true;
 	}

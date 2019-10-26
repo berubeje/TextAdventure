@@ -2,25 +2,48 @@
 #include <iostream>
 #include "FileManager.h"
 #include "LocationManager.h"
-#include "InteractableManager.h"
+#include "ObstacleAndItemManager.h"
 #include "CommandManager.h"
 #include "Player.h"
 
 class TextGame
 {
 private:
-	FileManager* fileMgr;
-	LocationManager* locMgr;
-	InteractableManager* interMgr;
-	CommandManager* cmdMgr;
-	Player* player;
+	//FileManager* fileMgr;
+	//LocationManager* locMgr;
+	////ObstacleAndItemManager* interMgr;
+	////CommandManager* cmdMgr;
+	//Player* player;
 	
 public:
-	TextGame();
-	~TextGame();
+
+	inline static TextGame& Instance() {
+		static TextGame instance;
+		return instance;
+	}
+
+
 	bool Setup();
 	void StartGame();
 	void GameLoop();
 	void AdjustString(std::string& resp);
+
+private:
+	inline explicit TextGame()
+	{
+	}
+
+	inline ~TextGame()
+	{
+	}
+
+	inline explicit TextGame(TextGame const&)
+	{
+	}
+
+	inline TextGame& operator=(TextGame const&)
+	{
+		return *this;
+	}
 };
 

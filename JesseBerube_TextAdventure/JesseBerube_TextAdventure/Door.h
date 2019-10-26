@@ -1,19 +1,26 @@
 #pragma once
-#include "Interactable.h"
+#include "Obstacle.h"
+#include "json.hpp"
 class Door :
-	public Interactable
+	public Obstacle
 {
 private:
 	std::string blockingDirection;
-	bool opened;
-	std::string ifOpenDesc;
-	std::string ifClosedDesc;
+	std::string openDescription;
+	std::string closedDescription;
+	bool isLocked;
+	bool isPuzzle;
+	bool open;
 
 public:
-	Door(int loc, std::string name, std::string block ,bool state ,std::string open, std::string close);
+	Door();
+	//Door(int loc, std::string name,  std::string noun, std::string block ,bool state ,std::string open, std::string close, bool locked, bool puzzle);
 	virtual ~Door();
-    void Open();
-	void Close();
-	virtual std::string GetDescription();
+	virtual std::string GetDescription(int select = 1);
+	virtual void Initialize(json::JSON& node);
+	virtual void Interact(std::string& verb);
+	virtual bool GetStatus() { return open; }
+
+	static Obstacle* Create() { return new Door(); }
 };
 

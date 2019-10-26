@@ -1,23 +1,7 @@
 #include "TextGame.h"
 #include <algorithm>
 #include <regex>
-TextGame::TextGame()
-{
-	locMgr = new LocationManager();
-	interMgr = new InteractableManager();
-	player = new Player();
-	cmdMgr = new CommandManager(locMgr, interMgr, player);
-	fileMgr = new FileManager(locMgr, interMgr, player, cmdMgr);
-}
 
-TextGame::~TextGame()
-{
-	delete fileMgr;
-	delete player;
-	delete interMgr;
-	delete locMgr;
-	delete cmdMgr;
-}
 
 
 bool TextGame::Setup()
@@ -59,14 +43,14 @@ bool TextGame::Setup()
 
 	if (response == 'N')
 	{
-		if (fileMgr->LoadFile(true) == false)
+		if (FileManager::Instance().LoadFile(true) == false)
 		{
 			return false;
 		}
 	}
 	else
 	{
-		if (fileMgr->LoadFile(false) == false)
+		if (FileManager::Instance().LoadFile(false) == false)
 		{
 
 			return false;
@@ -82,6 +66,7 @@ void TextGame::StartGame()
 void TextGame::GameLoop()
 {
 	std::string response;
+	CommandManager::Instance().LookCommand();
 	std::getline(std::cin, response);
 	do
 	{
@@ -97,7 +82,7 @@ void TextGame::GameLoop()
 				return;
 			}
 
-			cmdMgr->ValidateAndExecuteCommand(response);
+			CommandManager::Instance().ValidateAndExecuteCommand(response);
 
 		}
 		catch (int e)

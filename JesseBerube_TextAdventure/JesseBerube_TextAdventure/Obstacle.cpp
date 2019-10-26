@@ -2,10 +2,11 @@
 
 Obstacle::Obstacle()
 {
+	locationId = -1;
 }
 
 Obstacle::Obstacle(int loc, std::string name, std::string comName)
-	:locationId(loc), interactableName(name), commandNoun(comName)
+	:locationId(loc), obstacleName(name), commandNoun(comName)
 {
 }
 

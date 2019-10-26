@@ -151,35 +151,45 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClCompile Include="Barrier.cpp" />
     <ClCompile Include="CommandManager.cpp" />
     <ClCompile Include="Direction.cpp" />
     <ClCompile Include="Door.cpp" />
+    <ClCompile Include="Enemy.cpp" />
     <ClCompile Include="FileManager.cpp" />
-    <ClCompile Include="Interactable.cpp" />
-    <ClCompile Include="InteractableManager.cpp" />
+    <ClCompile Include="Friend.cpp" />
+    <ClCompile Include="Obstacle.cpp" />
+    <ClCompile Include="ObstacleAndItemManager.cpp" />
     <ClCompile Include="Item.cpp" />
     <ClCompile Include="json.cpp" />
+    <ClCompile Include="Key.cpp" />
     <ClCompile Include="Location.cpp" />
     <ClCompile Include="main.cpp" />
     <ClCompile Include="LocationManager.cpp" />
     <ClCompile Include="Note.cpp" />
     <ClCompile Include="Player.cpp" />
     <ClCompile Include="TextGame.cpp" />
+    <ClCompile Include="Weapon.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="Barrier.h" />
     <ClInclude Include="CommandManager.h" />
     <ClInclude Include="Direction.h" />
     <ClInclude Include="Door.h" />
+    <ClInclude Include="Enemy.h" />
     <ClInclude Include="FileManager.h" />
-    <ClInclude Include="Interactable.h" />
-    <ClInclude Include="InteractableManager.h" />
+    <ClInclude Include="Friend.h" />
+    <ClInclude Include="Obstacle.h" />
+    <ClInclude Include="ObstacleAndItemManager.h" />
     <ClInclude Include="Item.h" />
     <ClInclude Include="json.hpp" />
+    <ClInclude Include="Key.h" />
     <ClInclude Include="Location.h" />
     <ClInclude Include="LocationManager.h" />
     <ClInclude Include="Note.h" />
     <ClInclude Include="Player.h" />
     <ClInclude Include="TextGame.h" />
+    <ClInclude Include="Weapon.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

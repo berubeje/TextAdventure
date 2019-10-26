@@ -1,15 +1,26 @@
 #include "CommandManager.h"
-#include "Interactable.h"
-#include "InteractableManager.h"
+#include "Obstacle.h"
+#include "Item.h"
+#include "ObstacleAndItemManager.h"
 #include "LocationManager.h"
 #include "Location.h"
 #include "Player.h"
 #include <iostream>
 
-CommandManager::CommandManager(LocationManager* loc, InteractableManager* inter, Player* play)
-	:locMgr(loc), interMgr(inter), player(play)
+
+void CommandManager::UpdateInteractablesInAreaList(int& id)
 {
+	itemsInArea.clear();
+	obstaclesInArea.clear();
+	obstaclesInArea = ObstacleAndItemManager::Instance().GetObstaclesByLocationId(id);
+	itemsInArea = ObstacleAndItemManager::Instance().GetItemsByLocationId(id);
+}
+
+void CommandManager::CreateCommands(std::vector<Obstacle*>* obstacleVec, std::vector<Item*>* itemVec)
+{
+
 	//Moving Commands
+	commands.emplace("MOVE", "*Move in what direction?*");
 	commands.emplace("MOVE", "NORTH");
 	commands.emplace("MOVE", "EAST");
 	commands.emplace("MOVE", "WEST");
@@ -26,26 +37,46 @@ CommandManager::CommandManager(LocationManager* loc, InteractableManager* inter,
 	commands.emplace("CLOSE", "*Close What*");
 	commands.emplace("ATTACK", "*Attack what with what?*");
 
+	commands.emplace("GRAB", "*Grab what?*");
+	commands.emplace("GRAB", "FRIEND");
+
 	//Preposition
 	commands.emplace("ON", "");
 	commands.emplace("WITH", "");
-}
 
-CommandManager::~CommandManager()
-{
 
-}
-
-void CommandManager::CreateCommands(std::vector<Interactable*>* interVec)
-{
 	//This will be used to stop repeating nouns being added into the command list. Only one version of the noun is needed.
 	//std::vector<std::string> existingNouns;
 
-	for (auto inter : *interVec)
+	for (auto ob : *obstacleVec)
 	{
 		bool exists = false;
-		std::string noun = inter->GetCommandName();
-		std::vector<std::string>* verbs = inter->GetValidVerbs();
+		std::string noun = ob->GetCommandName();
+		std::vector<std::string>* verbs = ob->GetValidVerbs();
+
+		//search to make sure the noun and verb combination is not already in the map, as we only need it once
+		for (int i = 0; i != verbs->size(); i++)
+		{
+			for (auto command : commands)
+			{
+				if (command.first == (*verbs)[i] && command.second == noun)
+				{
+					exists = true;
+				}
+			}
+
+			if (exists == false)
+			{
+				commands.emplace((*verbs)[i], noun);
+			}
+		}
+	}
+
+	for (auto it : *itemVec)
+	{
+		bool exists = false;
+		std::string noun = it->GetCommandName();
+		std::vector<std::string>* verbs = it->GetValidVerbs();
 
 		//search to make sure the noun and verb combination is not already in the map, as we only need it once
 		for (int i = 0; i != verbs->size(); i++)
@@ -264,7 +295,11 @@ bool CommandManager::ExecuteCommand(std::string& verb)
 
 bool CommandManager::ExecuteCommand(std::string& verb, std::string& noun)
 {
-	return false;
+	if (verb == "MOVE")
+	{
+		MoveCommand(noun);
+	}
+	return true;
 }
 
 bool CommandManager::ExecuteCommand(std::string& verb, std::string& noun, std::string& preposition, std::string& noun2)
@@ -274,14 +309,59 @@ bool CommandManager::ExecuteCommand(std::string& verb, std::string& noun, std::s
 
 void CommandManager::LookCommand()
 {
+
 	std::string lookDescription;
 
-	Location* loc = locMgr->GetLocation(player->GetLocation());
+	Location* loc = LocationManager::Instance().GetLocation(Player::Instance().GetLocation());
 
 	lookDescription += loc->GetLocationDescription() + "\n";
 
-	lookDescription += interMgr->GetInteractableDescriptions(player->GetLocation());
-
+	lookDescription += ObstacleAndItemManager::Instance().GetInteractableDescriptions(Player::Instance().GetLocation());
+	std::cout << "\n"<< std::endl;
 	std::cout << lookDescription << std::endl;
+}
+
+void CommandManager::MoveCommand(std::string& dir)
+{
+	std::cout << "You moved" << std::endl;
+	Location* loc = LocationManager::Instance().GetLocation(Player::Instance().GetLocation());
+
+	Direction* direct = loc->GetDirection(dir);
+
+	if (direct != nullptr)
+	{
+		int newLoc = direct->GetToLocation();
+		if (LocationManager::Instance().GetLocation(newLoc) != nullptr)
+		{
+			Player::Instance().ChangeLocation(newLoc);
+			UpdateInteractablesInAreaList(newLoc);
+
+			LookCommand();
+		}
+		else
+		{
+			std::cout << direct->GetFailure() << std::endl;
+		}
+	}
+	else
+	{
+		std::cout << "*You cannot go that way*" << std::endl;
+	}
+}
+
+bool CommandManager::CheckForDoorAndBarrier(int& loc, std::string& dir)
+{
+	//for (auto inter : interactablesInArea)
+	//{
+	//	if (inter->GetClassType() == "Door")
+	//	{
+	//		
+	//	}
+	//	else if(inter->GetClassType() == "Barrier")
+	//	{
+
+	//	}
+	//}
+	return false;
 }
 

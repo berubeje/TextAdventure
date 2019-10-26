@@ -6,20 +6,19 @@ using namespace std;
 
 int main()
 {
-	TextGame* game = new TextGame();
-	bool success = game->Setup();
 
-	if (success)
-	{
-		game->StartGame();
-	}
-	else
-	{
-		std::cout << "Something when wrong while setting up. Aborting application." << std::endl;
-		return -1;
-	}
+		bool success = TextGame::Instance().Setup();
 
-	delete game;
+		if (success)
+		{
+			TextGame::Instance().StartGame();
+		}
+		else
+		{
+			std::cout << "Something when wrong while setting up. Aborting application." << std::endl;
+			return -1;
+		}
+
 }
 
 
