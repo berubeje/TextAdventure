@@ -65,6 +65,14 @@ void CommandManager::SetupCommandManager(std::vector<Obstacle*>& obstacleVec, st
 	commands.emplace("WITH", "ATTACK");
 
 
+	//Setup command function pointers
+	//oneWordCommands.emplace("LOOK", std::function<bool()>(CommandManager::Instance().LookCommand));
+	oneWordCommands.emplace("LOOK", std::bind(&CommandManager::LookCommand, &CommandManager::Instance()));
+	
+	
+	twoWordCommands.emplace("USE", std::function<bool(std::string&, std::string&, bool&)>(CommandManager::Instance().UseCommand));
+	
+
 	//This will be used to stop repeating nouns being added into the command list. Only one version of the noun is needed.
 	//std::vector<std::string> existingNouns;
 
@@ -414,7 +422,8 @@ bool CommandManager::ExecuteCommand(std::string& verb, std::string& noun, bool& 
 			std::cout << "*You do not have that item*\n" << std::endl;
 			return false;
 		}
-		UseCommand(verb, noun);
+		bool test = false;
+		UseCommand(verb, noun, test);
 	}
 	else if (verb == "GRAB")
 	{
@@ -444,7 +453,7 @@ bool CommandManager::ExecuteCommand(std::string& verb, std::string& noun, std::s
 	return true;
 }
 
-void CommandManager::LookCommand()
+bool CommandManager::LookCommand()
 {
 	int currentLocation = currentPlayer->GetLocation();
 	
@@ -482,14 +491,25 @@ void CommandManager::LookCommand()
 
 	std::cout << std::endl;
 	std::cout << lookDescription << std::endl;
+	return true;
 }
 
-void CommandManager::ShowInventoryCommand()
+bool CommandManager::ShowInventoryCommand()
 {
+	std::string output = "";
+
 	for (auto item : currentPlayer->GetInventory())
 	{
-		std::cout << item->GetName() +" : " + item->GetCommandName() << std::endl;
+		output += item->GetName() + " : " + item->GetCommandName() + "\n";
 	}
+
+	if (output == "")
+	{
+		output = "Inventory is empty\n";
+	}
+
+	std::cout << output;
+	return true;
 }
 
 bool CommandManager::MoveCommand(std::string& dir)
@@ -612,7 +632,7 @@ bool CommandManager::DropCommand(std::string& noun)
 	return false;
 }
 
-bool CommandManager::UseCommand(std::string& verb, std::string& noun)
+bool CommandManager::UseCommand(std::string& verb, std::string& noun, bool& invalidNoun)
 {
 	
 	for (auto item : currentPlayer->GetInventory())

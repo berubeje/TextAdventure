@@ -153,6 +153,7 @@
   <ItemGroup>
     <ClCompile Include="Barrier.cpp" />
     <ClCompile Include="CommandManager.cpp" />
+    <ClCompile Include="DatabaseManager.cpp" />
     <ClCompile Include="Direction.cpp" />
     <ClCompile Include="Door.cpp" />
     <ClCompile Include="Enemy.cpp" />
@@ -174,6 +175,7 @@
   <ItemGroup>
     <ClInclude Include="Barrier.h" />
     <ClInclude Include="CommandManager.h" />
+    <ClInclude Include="DatabaseManager.h" />
     <ClInclude Include="Direction.h" />
     <ClInclude Include="Door.h" />
     <ClInclude Include="Enemy.h" />

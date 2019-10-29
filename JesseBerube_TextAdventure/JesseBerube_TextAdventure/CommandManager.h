@@ -3,6 +3,7 @@
 #include <string>
 #include <vector>
 #include <list>
+#include <functional>
 
 class Obstacle;
 class Item;
@@ -17,6 +18,12 @@ class CommandManager
 private:
 	//std::map<std::string, std::string> moveCommands;
 	std::multimap<std::string, std::string> commands;
+
+	std::map<std::string, std::function<bool()>> oneWordCommands;
+	std::map<std::string, std::function<bool(std::string&, std::string&, bool&)>> twoWordCommands;
+	std::map<std::string, std::function<bool(std::string&, std::string&, std::string&, bool&)>> fourWordCommands;
+
+
 	std::list<Obstacle*> obstaclesInArea;
 	std::list<Item*> itemsInArea;
 	std::list<Enemy*> enemiesInArea;
@@ -35,9 +42,9 @@ public:
 	void UpdateInteractablesInAreaList(int& id);
 	void SetupCommandManager(std::vector<Obstacle*>& obstacleVec, std::vector<Item*>& itemVec, std::vector<Enemy*>& enemyVec);
 	void ValidateAndExecuteCommand(std::string com);
-	void LookCommand();
+	
+	bool LookCommand();
 
-	void ShowInventoryCommand();
 
 
 private:
@@ -67,17 +74,17 @@ private:
 	bool ExecuteCommand(std::string& verb, std::string& noun, bool& invalidNoun);
 	bool ExecuteCommand(std::string& verb, std::string& noun, std::string& noun2, bool& invalidNoun);
 
-
+	bool ShowInventoryCommand();
 	bool MoveCommand(std::string& dir);
 	bool OpenCloseCommand(std::string& verb, std::string& noun);
 	bool UseCommand(std::string& verb, std::string& noun, std::string& noun2);
-	bool UseCommand(std::string& verb, std::string& noun);
-	bool CheckForDoorAndBarrier(int& loc, std::string& dir);
+	bool UseCommand(std::string& verb, std::string& noun, bool& invalidNoun);
 	bool PickupCommand(std::string& noun);
 	bool DropCommand(std::string& noun);
 	bool PressCommand(std::string& noun);
 	bool GrabFriendCommand(std::string& noun);
 
+	bool CheckForDoorAndBarrier(int& loc, std::string& dir);
 	bool CheckForEnemy();
 };
 
