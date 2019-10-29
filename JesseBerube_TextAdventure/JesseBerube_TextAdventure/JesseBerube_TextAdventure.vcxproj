@@ -159,7 +159,7 @@
     <ClCompile Include="FileManager.cpp" />
     <ClCompile Include="Friend.cpp" />
     <ClCompile Include="Obstacle.cpp" />
-    <ClCompile Include="ObstacleAndItemManager.cpp" />
+    <ClCompile Include="GameObjectManager.cpp" />
     <ClCompile Include="Item.cpp" />
     <ClCompile Include="json.cpp" />
     <ClCompile Include="Key.cpp" />
@@ -180,7 +180,7 @@
     <ClInclude Include="FileManager.h" />
     <ClInclude Include="Friend.h" />
     <ClInclude Include="Obstacle.h" />
-    <ClInclude Include="ObstacleAndItemManager.h" />
+    <ClInclude Include="GameObjectManager.h" />
     <ClInclude Include="Item.h" />
     <ClInclude Include="json.hpp" />
     <ClInclude Include="Key.h" />

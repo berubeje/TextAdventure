@@ -3,6 +3,10 @@
 
 Door::Door()
 {
+	validVerbs.push_back("OPEN");
+	validVerbs.push_back("CLOSE");
+
+
 }
 
 //Door::Door(int loc, std::string name, std::string noun, std::string block, bool state, std::string open, std::string close, bool locked, bool puzzle)
@@ -17,47 +21,110 @@ Door::~Door()
 {
 }
 
+bool Door::CheckBlockage(std::string& dir)
+{
+	if (blockingDirection == dir && open == false)
+	{
+		std::cout << GetDescription() + "\n" << std::endl;
+		return true;
+	}
+	return false;
+}
+
 std::string Door::GetDescription(int select)
 {
 	if (select == 1)
 	{
 		if (open == true)
 		{
-			return openDescription;
+			return openDescription + " : " + commandNoun;
 		}
 		else
 		{
-			return closedDescription;
+			return closedDescription + " : " + commandNoun;
 		}
 	}
+
+	return "";
 }
 
-void Door::Interact(std::string& verb)
+bool Door::Interact(std::string& word)
 {
-	if (verb == "OPEN")
+	if (word == "OPEN")
 	{
 		if (open == false)
 		{
-			open = true;
-			std::cout << "The " + obstacleName + " has been opened." << std::endl;
+			if (isLocked == false)
+			{
+				open = true;
+				std::cout << "The " + obstacleName + " has been opened.\n" << std::endl;
+				return true;
+			}
+			else
+			{
+				std::cout << "The " + obstacleName + " is locked.\n" << std::endl;
+			}
 		}
 		else
 		{
-			std::cout << "The " + obstacleName + " is already open." << std::endl;
+			std::cout << "The " + obstacleName + " is already open.\n" << std::endl;
+			return false;
 		}
 	}
-	else if (verb == "CLOSED")
+	else if (word == "CLOSE")
 	{
 		if (open == true)
 		{
 			open = false;
-			std::cout << "The " + obstacleName + " has been closed." << std::endl;
+			std::cout << "The " + obstacleName + " has been closed.\n" << std::endl;
+			return true;
 		}
 		else
 		{
-			std::cout << "The " + obstacleName + " is already closed." << std::endl;
+			std::cout << "The " + obstacleName + " is already closed.\n" << std::endl;
+			return false;
 		}
 	}
+	else if (isPuzzle == true && isLocked == true && (word == "UP" || word == "DOWN" || word == "LEFT" || word == "RIGHT" || word == "B" || word == "A" || word == "START" || word == "SELECT"))
+	{
+		for (auto puz : puzzleCombo)
+		{
+			if (puz.first == word && puz.second == partOfPuzzle)
+			{
+				partOfPuzzle++;
+				std::cout << "DING! Correct input!\n" << std::endl;
+
+				if (puzzleCombo.size() < partOfPuzzle)
+				{
+					isLocked = false;
+					open = true;
+
+					std::cout << "The puzzle clicks once more and opens wide, allowing passage!\n" << std::endl;
+
+
+					return true;
+				}
+
+				return true;
+			}
+		}
+
+		std::cout << "BZZT! Resetting input!\n" << std::endl;
+		partOfPuzzle = 1;
+		return true;
+
+	}
+	else
+	{
+		std::cout << "You cannot do that with the " + obstacleName + ".\n" << std::endl;
+		return false;
+	}
+}
+
+void Door::Resolve()
+{
+	isLocked = false;
+	std::cout << "The " + obstacleName + " unlocks!\n" << std::endl;
 }
 
 void Door::Initialize(json::JSON& node)
@@ -77,6 +144,26 @@ void Door::Initialize(json::JSON& node)
 	isLocked = node["IsLocked"].ToBool();
 	isPuzzle = node["IsPuzzle"].ToBool();
 
+	if (isPuzzle)
+	{
+		partOfPuzzle = 1;
+
+		validVerbs.push_back("PRESS");
+
+		puzzleCombo.emplace("UP", 1);
+		puzzleCombo.emplace("UP", 2);
+		puzzleCombo.emplace("DOWN", 3);
+		puzzleCombo.emplace("DOWN", 4);
+		puzzleCombo.emplace("LEFT", 5);
+		puzzleCombo.emplace("RIGHT", 6);
+		puzzleCombo.emplace("LEFT", 7);
+		puzzleCombo.emplace("RIGHT", 8);
+		puzzleCombo.emplace("B", 9);
+		puzzleCombo.emplace("A", 10);
+		puzzleCombo.emplace("START", 11);
+	}
+
 }
+
 
 

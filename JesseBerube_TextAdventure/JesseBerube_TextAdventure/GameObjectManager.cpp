@@ -6,30 +6,31 @@
 #include "Weapon.h"
 #include "Barrier.h"
 #include "Obstacle.h"
+#include "Player.h"
 #include <functional>
 #include <map>
 
 
 
-void GameObjectManager::CreateInteractablesFromJSON(json::JSON& items, json::JSON& object)
+void GameObjectManager::CreateInteractablesFromJSON(json::JSON& items, json::JSON& obstacle, json::JSON& enemies)
 {
 	std::map < std::string, std::function<Obstacle* ()>> obstacleMap;
 	std::map < std::string, std::function<Item* ()>> itemMap;
 
 	obstacleMap.emplace("Door", std::function<Obstacle * ()>(Door::Create));
-	obstacleMap.emplace("Enemy", std::function<Obstacle * ()>(Enemy::Create));
 	obstacleMap.emplace("Barrier", std::function<Obstacle * ()>(Barrier::Create));
+	
 	itemMap.emplace("Note", std::function<Item * ()>(Note::Create));
 	itemMap.emplace("Key", std::function<Item * ()>(Key::Create));
 	itemMap.emplace("Weapon", std::function<Item * ()>(Weapon::Create));
 
 
-	for (auto obj : object.ArrayRange())
+	for (auto ob : obstacle.ArrayRange())
 	{
 		Obstacle* newObstacle = nullptr;
 
-		newObstacle = obstacleMap[obj["ClassName"].ToString()]();
-		newObstacle->Initialize(obj);
+		newObstacle = obstacleMap[ob["ClassName"].ToString()]();
+		newObstacle->Initialize(ob);
 		AddObstacle(newObstacle);
 
 	}
@@ -44,6 +45,21 @@ void GameObjectManager::CreateInteractablesFromJSON(json::JSON& items, json::JSO
 
 
 	}
+
+	for (auto enemy : enemies.ArrayRange())
+	{
+		Enemy* newEnemy = new Enemy();
+		newEnemy->Initialize(enemy);
+		AddEnemy(newEnemy);
+
+	}
+}
+
+void GameObjectManager::CreatePlayerAndFriendFromJSON(json::JSON& playerJSON, json::JSON& friendJSON)
+{
+	player->SetupPlayer(playerJSON);
+	player->SetupInventory();
+	friendLocation->SetFriendLocation(friendJSON["FriendLocation"].ToInt());
 }
 
 
@@ -55,6 +71,10 @@ void GameObjectManager::AddObstacle(Obstacle* _obstacle)
 void GameObjectManager::AddItem(Item* _item)
 {
 	itemVector.push_back(_item);
+}
+void GameObjectManager::AddEnemy(Enemy* _enemy)
+{
+	enemyVector.push_back(_enemy);
 }
 
 
@@ -105,6 +125,20 @@ std::list<Item*> GameObjectManager::GetItemsByLocationId(int& id)
 		if (it->GetLocation() == id)
 		{
 			newList.push_back(it);
+		}
+	}
+	return newList;
+}
+
+std::list<Enemy*> GameObjectManager::GetEnemiesByLocationId(int& id)
+{
+	std::list<Enemy*> newList;
+
+	for (auto enemy : enemyVector)
+	{
+		if (enemy->GetLocation() == id)
+		{
+			newList.push_back(enemy);
 		}
 	}
 	return newList;

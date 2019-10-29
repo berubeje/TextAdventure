@@ -4,7 +4,7 @@
     "HasFriend": false
   },
   "Friend": {
-    "FriendLocation": 19
+    "FriendLocation": 20
   },
   "Items": [
     {
@@ -17,19 +17,19 @@
     },
     {
       "ClassName": "Note",
-      "WrittenOnNote": "Hello My Friend,\r\n\r\nIf you are reading this, I have returned. Whether I am dead or not, I am not certain. If you want to find me, go down to the cellar. You will know what I mean.",
+      "WrittenOnNote": "Hello My Friend, If you are reading this, I have returned. Whether I am dead or not, I am not certain. If you want to find me, go down to the cellar. You will know what I mean.",
       "Name": "Friend's Note",
       "LocationId": 9,
       "CommandNoun": "LETTER",
-      "WorldInfo": "There is a note on the ground."
+      "WorldInfo": "There is a letter on the counter."
     },
     {
       "ClassName": "Key",
       "DoorBarrierName": "Dark",
       "Name": "Torch",
-      "LocationId": 7,
+      "LocationId": 4,
       "CommandNoun": "TORCH",
-      "WorldInfo": "There is a torch on the ground."
+      "WorldInfo": "There is a torch on the shelf."
     },
     {
       "ClassName": "Weapon",
@@ -57,13 +57,13 @@
     {
       "ClassName": "Note",
       "WrittenOnNote": "The K****i C**e",
-      "Name": "Weird Note",
+      "Name": "Note",
       "LocationId": 3,
-      "CommandNoun": "Note",
-      "WorldInfo": "There is a piece of paper on the table."
+      "CommandNoun": "NOTE",
+      "WorldInfo": "There is a note on the table."
     }
   ],
-  "Objects": [
+  "Obstacles": [
     {
       "ClassName": "Door",
       "BlockingDirection": "NORTH",
@@ -140,7 +140,7 @@
       "ClassName": "Barrier",
       "BlockingDirection": "SOUTH",
       "UnsolvedDescription": "The stairs to the south are too dark to use.",
-      "SolvedDescription": "The flashlight illuminates the dark, allowing you to see!",
+      "SolvedDescription": "The torch illuminates the dark, allowing you to see!",
       "FatalDescription": "You try to use the stairs in the dark, causing you to stumble on a rotting step and fall, causing head trauma.",
       "IsSolved": false,
       "IsFatal": true,
@@ -149,20 +149,10 @@
       "CommandNoun": "DARK"
     },
     {
-      "ClassName": "Enemy",
-      "IsAlive": true,
-      "IsAliveDescription": "There is a skeleton blocking your path, readying for an attack!",
-      "KilledDescription": "The skeleton crumbles to dust from your attack!",
-      "KilledPlayerDescription": "The skeleton slashes at you and connects, ending your life where you stand.",
-      "Name": "Skeleton",
-      "LocationId": 18,
-      "CommandNoun": "SKELETON"
-    },
-    {
       "ClassName": "Barrier",
-      "BlockingDirection": "EAST",
+      "BlockingDirection": "DOWN",
       "UnsolvedDescription": "There is a cliff. You can hear your friend calling for help from below!",
-      "SolvedDescription": "The rope helps your friend climb up! You just need to GRAB him and get out of this strange world!",
+      "SolvedDescription": "The rope allows you to saftely go down to get your friend.",
       "FatalDescription": "You decided to just walk off the cliff... Smart!",
       "IsSolved": false,
       "IsFatal": true,
@@ -181,16 +171,30 @@
       "Name": "Rubble",
       "LocationId": 18,
       "CommandNoun": "RUBBLE"
+    }
+  ],
+  "Enemies": [
+    {
+      "ClassName": "Enemy",
+      "Name": "Skeleton",
+      "LocationId": 18,
+      "CommandNoun": "SKELETON",
+      "IsAlive": true,
+      "TriggerOnFriend": false,
+      "IsAliveDescription": "There is a skeleton blocking your path, readying for an attack!",
+      "KilledDescription": "The skeleton crumbles to dust from your attack!",
+      "KilledPlayerDescription": "The skeleton slashes at you and connects, ending your life where you stand."
     },
     {
       "ClassName": "Enemy",
-      "IsAlive": false,
-      "IsAliveDescription": "There is a minotaur blocking your path home, readying to attack!",
-      "KilledDescription": "You fell the minotaur with your strike, the way home clear!",
-      "KilledPlayerDescription": "The minotaur kills you on the spot, taking your friend away.",
       "Name": "Minotaur",
       "LocationId": 12,
-      "CommandNoun": "Minotaur"
+      "CommandNoun": "MINOTAUR",
+      "IsAlive": true,
+      "TriggerOnFriend": true,
+      "IsAliveDescription": "There is a minotaur blocking your path home, readying to attack!",
+      "KilledDescription": "You fell the minotaur with your strike, the way home clear!",
+      "KilledPlayerDescription": "The minotaur kills you on the spot, taking your friend away."
     }
   ],
   "Locations": [
@@ -202,14 +206,15 @@
         {
           "CompassDirection": "NORTH",
           "ToLocationId": 2,
-          "ConditionFailure": "The door is closed."
+          "ConditionFailure": ""
         },
         {
           "CompassDirection": "SOUTH",
           "ToLocationId": 5,
           "ConditionFailure": "Are you really going to leave your friend behind?"
         }
-      ]
+      ],
+      "EndLocation": false
     },
     {
       "LocationId": 2,
@@ -236,7 +241,8 @@
           "ToLocationId": 8,
           "ConditionFailure": ""
         }
-      ]
+      ],
+      "EndLocation": false
     },
     {
       "LocationId": 3,
@@ -253,7 +259,8 @@
           "ToLocationId": 2,
           "ConditionFailure": ""
         }
-      ]
+      ],
+      "EndLocation": false
     },
     {
       "LocationId": 4,
@@ -265,7 +272,8 @@
           "ToLocationId": 3,
           "ConditionFailure": "The closet door is closed"
         }
-      ]
+      ],
+      "EndLocation": false
     },
     {
       "LocationId": 5,
@@ -282,7 +290,8 @@
           "ToLocationId": 2,
           "ConditionFailure": ""
         }
-      ]
+      ],
+      "EndLocation": false
     },
     {
       "LocationId": 6,
@@ -299,7 +308,8 @@
           "ToLocationId": 5,
           "ConditionFailure": ""
         }
-      ]
+      ],
+      "EndLocation": false
     },
     {
       "LocationId": 7,
@@ -311,7 +321,8 @@
           "ToLocationId": 6,
           "ConditionFailure": ""
         }
-      ]
+      ],
+      "EndLocation": false
     },
     {
       "LocationId": 8,
@@ -331,9 +342,10 @@
         {
           "CompassDirection": "SOUTH",
           "ToLocationId": 10,
-          "ConditionFailure": "The area is too dark to safely go into!"
+          "ConditionFailure": ""
         }
-      ]
+      ],
+      "EndLocation": false
     },
     {
       "LocationId": 9,
@@ -345,7 +357,8 @@
           "ToLocationId": 8,
           "ConditionFailure": ""
         }
-      ]
+      ],
+      "EndLocation": false
     },
     {
       "LocationId": 10,
@@ -362,12 +375,13 @@
           "ToLocationId": 11,
           "ConditionFailure": ""
         }
-      ]
+      ],
+      "EndLocation": false
     },
     {
       "LocationId": 11,
       "LocationName": "Mysterious Room",
-      "Description": "This room looks nothing like the rest of the mansion. The room is in peak condition, looking like something out of a fantasy, like it exists outside of time. There are books in languages you cannot understand, as well as medieval weaponry and armor, though all of it attached securely to the wall with no way to take them off. \r\n\r\nTo the north of the room, there is a strange door that has buttons on it. The buttons are arrows in point up, down, left, and right, two circle buttons labeled A and B, and two other buttons labeled start and select.",
+      "Description": "This room looks nothing like the rest of the mansion. The room is in peak condition, looking like something out of a fantasy, like it exists outside of time. There are books in languages you cannot understand, as well as medieval weaponry and armor, though all of it attached securely to the wall with no way to take them off. To the north of the room, there is a strange door that has buttons on it. The buttons are arrows in point up, down, left, and right, two circle buttons labeled A and B, and two other buttons labeled start and select.",
       "Directions": [
         {
           "CompassDirection": "NORTH",
@@ -379,7 +393,8 @@
           "ToLocationId": 10,
           "ConditionFailure": "The door is closed."
         }
-      ]
+      ],
+      "EndLocation": true
     },
     {
       "LocationId": 12,
@@ -396,7 +411,8 @@
           "ToLocationId": 11,
           "ConditionFailure": ""
         }
-      ]
+      ],
+      "EndLocation": false
     },
     {
       "LocationId": 13,
@@ -413,7 +429,8 @@
           "ToLocationId": 12,
           "ConditionFailure": ""
         }
-      ]
+      ],
+      "EndLocation": false
     },
     {
       "LocationId": 14,
@@ -435,7 +452,8 @@
           "ToLocationId": 15,
           "ConditionFailure": "The cabin door is closed."
         }
-      ]
+      ],
+      "EndLocation": false
     },
     {
       "LocationId": 15,
@@ -447,7 +465,8 @@
           "ToLocationId": 14,
           "ConditionFailure": ""
         }
-      ]
+      ],
+      "EndLocation": false
     },
     {
       "LocationId": 16,
@@ -464,7 +483,8 @@
           "ToLocationId": 14,
           "ConditionFailure": ""
         }
-      ]
+      ],
+      "EndLocation": false
     },
     {
       "LocationId": 17,
@@ -481,7 +501,8 @@
           "ToLocationId": 16,
           "ConditionFailure": ""
         }
-      ]
+      ],
+      "EndLocation": false
     },
     {
       "LocationId": 18,
@@ -498,7 +519,8 @@
           "ToLocationId": 19,
           "ConditionFailure": ""
         }
-      ]
+      ],
+      "EndLocation": false
     },
     {
       "LocationId": 19,
@@ -506,11 +528,30 @@
       "Description": "The area has a pit going down. There is a piece of rope next to the edge, but it looks like it was cut by something sharp. It was most likely the skeleton from before.",
       "Directions": [
         {
-          "CompassDirection": "EAST",
+          "CompassDirection": "WEST",
           "ToLocationId": 18,
           "ConditionFailure": ""
+        },
+        {
+          "CompassDirection": "DOWN",
+          "ToLocationId": 20,
+          "ConditionFailure": ""
         }
-      ]
+      ],
+      "EndLocation": false
+    },
+    {
+      "LocationId": 20,
+      "LocationName": "Bottom Of Cliff",
+      "Description": "You have reached your friend! You just need to GRAB them!",
+      "Directions": [
+        {
+          "CompassDirection": "UP",
+          "ToLocationId": 19,
+          "ConditionFailure": ""
+        }
+      ],
+      "EndLocation": false
     }
   ]
 }

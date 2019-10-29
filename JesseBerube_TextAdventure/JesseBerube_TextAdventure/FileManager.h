@@ -1,9 +1,10 @@
 #pragma once
+#include <string>
 
 class FileManager
 {
 private:
-
+	std::string loadedFile;
 
 public:
 	inline static FileManager& Instance() {

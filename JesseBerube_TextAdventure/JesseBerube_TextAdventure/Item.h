@@ -3,6 +3,8 @@
 #include <vector>
 #include "json.hpp"
 
+class Enemy;
+class Obstacle;
 
 class Item
 {
@@ -11,7 +13,7 @@ protected:
 	std::string classType;
 	std::vector<std::string> validVerbs;
 	std::string commandNoun;
-	std::string interactableName;
+	std::string itemName;
 	std::string worldInfo;
 
 public:
@@ -20,16 +22,18 @@ public:
 	virtual ~Item();
 	//a location id of 0 is considered the player
 
-	const virtual int& GetLocation() { return locationId; }
-	const virtual std::string& GetType() { return classType; }
-	virtual std::vector<std::string>* GetValidVerbs() { return &validVerbs; }
-	const virtual std::string& GetCommandName() { return commandNoun; }
+	const int& GetLocation() { return locationId; }
+	const std::string& GetType() { return classType; }
+    std::vector<std::string>* GetValidVerbs() { return &validVerbs; }
+	const std::string& GetCommandName() { return commandNoun; }
+	const std::string& GetName() { return itemName; }
+	void SetLocation(int set) { locationId = set; }
 
-	virtual void Pickup() { locationId = 0; };
-	virtual void Drop(int location) { locationId = location; };
-	virtual std::string GetDescription() { return worldInfo; }
+	virtual std::string GetDescription() { return worldInfo + " : " + commandNoun; }
 
-	virtual void UseItem() = 0;
+	virtual void UseItem(std::string verb) = 0;
+	virtual void UseItem(std::string verb, Enemy* enemy) = 0;
+	virtual void UseItem(std::string verb, Obstacle* obstacle) = 0;
 	virtual void Initialize(json::JSON&) = 0;
 };
 

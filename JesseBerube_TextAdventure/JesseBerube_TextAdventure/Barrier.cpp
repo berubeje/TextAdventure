@@ -13,13 +13,30 @@ Barrier::~Barrier()
 {
 }
 
+bool Barrier::CheckBlockage(std::string& dir)
+{
+	if (blockingDirection == dir && isSolved == false)
+	{
+		if (isFatal == false)
+		{
+			std::cout << GetDescription() + "\n" << std::endl;
+		}
+		else
+		{
+			std::cout << fatalDescription + "\n" << std::endl;
+		}
+		return true;
+	}
+	return false;
+}
+
 std::string Barrier::GetDescription(int select)
 {
 	if (select = 1)
 	{
 		if (isSolved == false)
 		{
-			return unsolvedDescription;
+			return unsolvedDescription + " : " + commandNoun;
 		}
 		else
 		{
@@ -33,9 +50,18 @@ std::string Barrier::GetDescription(int select)
 	return "";
 }
 
-void Barrier::Interact(std::string& verb)
+bool Barrier::Interact(std::string& word)
 {
+
+	return false;
 }
+
+void Barrier::Resolve()
+{
+	isSolved = true;
+	std::cout << solvedDescription + "\n" << std::endl;
+}
+
 
 void Barrier::Initialize(json::JSON& node)
 {
@@ -48,7 +74,7 @@ void Barrier::Initialize(json::JSON& node)
 	//Barrier
 	blockingDirection = node["BlockingDirection"].ToString();
 	unsolvedDescription = node["UnsolvedDescription"].ToString();
-	solvedDescription = node["UnsolvedDescription"].ToString();
+	solvedDescription = node["SolvedDescription"].ToString();
 	fatalDescription = node["FatalDescription"].ToString();
 	isSolved = node["IsSolved"].ToBool();
 	isFatal = node["IsFatal"].ToBool();

@@ -9,38 +9,28 @@ class Player
 private:
 	int location;
 	bool hasFriend;
+	bool isDead;
 	std::list<Item*> inventory;
 
 public:
-	inline static Player& Instance() {
-		static Player instance;
-		return instance;
-	}
+	Player();
+	~Player();
+
+	bool& GetFriend() { return hasFriend; }
+	bool& GetDead() { return isDead; }
+    int& GetLocation() { return location; }
 
 	void SetupPlayer(json::JSON& node);
 	void ChangeLocation(int loc);
 	void SetFriend(bool set);
-	int& GetLocation() { return location; }
 	void SetupInventory();
-	void AddToInventory(Item* item);
-	void RemoveFromInventory(Item* item);
+	
+	void AddToInventory(Item* item) { inventory.push_back(item); }
+	void RemoveFromInventory(Item* item) { inventory.remove(item); }
+	std::list<Item*>& GetInventory() { return inventory; }
+	void Die();
+	
+	void SetDead(bool set) { isDead = set; }
 
-private:
-	inline explicit Player()
-	{
-	}
-
-	inline ~Player()
-	{
-	}
-
-	inline explicit Player(Player const&)
-	{
-	}
-
-	inline Player& operator=(Player const&)
-	{
-		return *this;
-	}
 };
 

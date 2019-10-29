@@ -82,7 +82,13 @@ void TextGame::GameLoop()
 				return;
 			}
 
+			std::cout << std::endl;
 			CommandManager::Instance().ValidateAndExecuteCommand(response);
+
+			if (endGame == true)
+			{
+				return;
+			}
 
 		}
 		catch (int e)
@@ -124,4 +130,10 @@ void TextGame::AdjustString(std::string& response)
 	}
 
 	transform(response.begin(), response.end(), response.begin(), ::toupper);
+}
+
+void TextGame::EndGame()
+{
+	std::cout << "You made it back to the mansion with your friend! You escaped the strange world safely! Thank you for playing!" << std::endl;
+	endGame = true;
 }

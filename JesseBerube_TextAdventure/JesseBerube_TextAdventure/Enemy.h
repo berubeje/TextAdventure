@@ -1,10 +1,18 @@
 #pragma once
 #include "Obstacle.h"
-class Enemy :
-	public Obstacle
+
+class Player;
+
+class Enemy
 {
 private:
+	int locationId;
+	std::vector<std::string> validVerbs;
+	std::string commandNoun;
+	std::string enemyName;
+
 	bool isAlive;
+	bool triggerOnFriend;
 	std::string isAliveDescription;
 	std::string killedDescription;
 	std::string killedPlayerDescription;
@@ -12,14 +20,22 @@ private:
 
 public:
 	Enemy();
-	//Enemy(int loc, std::string name, std::string noun, bool alive, std::string aliveDesc, std::string killedDesc, std::string killedPlayerDesc);
 	virtual ~Enemy();
 
-	virtual std::string GetDescription(int select = 1);
-	virtual void Initialize(json::JSON& node);
-	virtual void Interact(std::string& verb);
-	virtual bool GetStatus() { return isAlive; }
+	const int& GetLocation() { return locationId; }
+	std::vector<std::string>* GetValidVerbs() { return &validVerbs; }
+	const std::string& GetCommandName() { return commandNoun; }
+	const std::string& GetName() { return enemyName; }
 
-	static Obstacle* Create() { return new Enemy(); }
+	std::string GetDescription(int select = 1);
+	void Initialize(json::JSON& node);
+	void Interact(std::string& verb);
+	bool GetAlive() { return isAlive; }
+	bool GetFriendTrigger() { return triggerOnFriend; }
+
+	void KillEnemy();
+	void KillPlayer(Player* player);
+
+	static Enemy* Create() { return new Enemy(); }
 };
 

@@ -1,4 +1,5 @@
 #include "Enemy.h"
+#include "Player.h"
 
 
 
@@ -9,6 +10,7 @@
 
 Enemy::Enemy()
 {
+	validVerbs.push_back("ATTACK");
 }
 
 Enemy::~Enemy()
@@ -17,9 +19,9 @@ Enemy::~Enemy()
 
 std::string Enemy::GetDescription(int select)
 {
-	if (select = 1)
+	if (select == 1)
 	{
-		return isAliveDescription;
+		return isAliveDescription + " : " + commandNoun;
 	}
 
 	return "";
@@ -27,22 +29,31 @@ std::string Enemy::GetDescription(int select)
 
 void Enemy::Initialize(json::JSON& node)
 {
-	//Interactables
-	obstacleName = node["Name"].ToString();
+	//Enemy
+	enemyName = node["Name"].ToString();
 	locationId = node["LocationId"].ToInt();
 	commandNoun = node["CommandNoun"].ToString();
-	classType = node["ClassName"].ToString();
-
-
-	//Enemy
-	isAliveDescription = node["IsAliveDescription"].ToBool();
+	isAliveDescription = node["IsAliveDescription"].ToString();
 	killedDescription = node["KilledDescription"].ToString();
-	killedPlayerDescription = node["KilledPlayerDescription"].ToBool();
+	killedPlayerDescription = node["KilledPlayerDescription"].ToString();
 	isAlive = node["IsAlive"].ToBool();
+	triggerOnFriend = node["TriggerOnFriend"].ToBool();
 }
 
 void Enemy::Interact(std::string& verb)
 {
 
+}
+
+void Enemy::KillEnemy()
+{
+	isAlive = false;
+	std::cout << killedDescription + "\n" << std::endl;
+}
+
+void Enemy::KillPlayer(Player* player)
+{
+	std::cout << killedPlayerDescription + "\n" << std::endl;
+	player->Die();
 }
 

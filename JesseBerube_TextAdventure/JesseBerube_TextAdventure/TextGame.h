@@ -2,7 +2,7 @@
 #include <iostream>
 #include "FileManager.h"
 #include "LocationManager.h"
-#include "ObstacleAndItemManager.h"
+#include "GameObjectManager.h"
 #include "CommandManager.h"
 #include "Player.h"
 
@@ -11,9 +11,11 @@ class TextGame
 private:
 	//FileManager* fileMgr;
 	//LocationManager* locMgr;
-	////ObstacleAndItemManager* interMgr;
+	////GameObjectManager* interMgr;
 	////CommandManager* cmdMgr;
 	//Player* player;
+
+	bool endGame = false;
 	
 public:
 
@@ -27,6 +29,7 @@ public:
 	void StartGame();
 	void GameLoop();
 	void AdjustString(std::string& resp);
+	void EndGame();
 
 private:
 	inline explicit TextGame()

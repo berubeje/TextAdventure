@@ -2,10 +2,12 @@
 class Friend
 {
 private:
-	static int friendLocation;
+	 int friendLocation;
 
 public:
-	static void SetFriendLocation(int loc) { friendLocation = loc; }
-	static int& GetFriendLocaion() { return friendLocation; }
+	Friend();
+	~Friend();
+	void SetFriendLocation(int loc) { friendLocation = loc; }
+	int& GetFriendLocation() { return friendLocation; }
 };
 

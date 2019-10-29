@@ -1,3 +1,9 @@
 #include "Friend.h"
+ 
+Friend::Friend()
+{
+}
 
-int Friend::friendLocation = -1;
+Friend::~Friend()
+{
+}

@@ -17,15 +17,22 @@ public:
 	Obstacle(int loc, std::string name, std::string comName);
 	virtual ~Obstacle();
 
-	const virtual int& GetLocation() { return locationId; }
-	const virtual std::string& GetType() { return classType; }
-    virtual std::vector<std::string>* GetValidVerbs() { return &validVerbs; }
-	const virtual std::string& GetCommandName() { return commandNoun; }
-	
+	const int& GetLocation() { return locationId; }
+	const std::string& GetType() { return classType; }
+	const std::string& GetCommandName() { return commandNoun; }
+	const std::string& GetName() { return obstacleName; }
+	std::vector<std::string>* GetValidVerbs() { return &validVerbs; }
+
+
+	virtual bool CheckBlockage(std::string& dir) = 0;
 	virtual std::string GetDescription(int select = 1) = 0;
-	virtual void Initialize(json::JSON&) = 0;
-	virtual void Interact(std::string& verb) = 0;
+	virtual void Initialize(json::JSON& node) = 0;
+	virtual bool Interact(std::string& word) = 0;
+	virtual bool GetOpen() = 0;
 	virtual bool GetStatus() = 0;
+	//virtual void SetStatus(bool set) = 0;
+	virtual void Resolve() = 0;
+	
 	
 };
 

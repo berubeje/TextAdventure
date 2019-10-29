@@ -6,7 +6,7 @@ void LocationManager::CreateLocationsFromJSON(json::JSON& node)
 {
 	for (auto loc:node.ArrayRange())
 	{
-		Location* newLoc = new Location(loc["LocationId"].ToInt(), loc["LocationName"].ToString(),loc["Description"].ToString());
+		Location* newLoc = new Location(loc["LocationId"].ToInt(), loc["LocationName"].ToString(),loc["Description"].ToString(), loc["EndLocation"].ToBool());
 	
 		newLoc->CreateDirectionsFromJSON(loc["Directions"]);
 

@@ -8,27 +8,46 @@
 
 Note::Note()
 {
+	validVerbs.push_back("READ");
 }
 
 Note::~Note()
 {
 }
 
-void Note::UseItem()
+//Note does not need a noun,
+void Note::UseItem(std::string verb)
 {
-	std::cout << writtenOnNote << std::endl;
+	if (verb == "USE" || verb == "READ")
+	{
+		std::cout << writtenOnNote+"\n" << std::endl;
+	}
+}
+
+void Note::UseItem(std::string verb, Enemy* enemy)
+{
+	if (verb == "USE" || verb == "READ")
+	{
+		std::cout << "*You cannot use the "+ itemName + " that way*\n" << std::endl;
+	}
+}
+
+void Note::UseItem(std::string verb, Obstacle* obstacle)
+{
+	if (verb == "USE" || verb == "READ")
+	{
+		std::cout << "*You cannot use the " + itemName + " that way*\n" << std::endl;
+	}
+
 }
 
 void Note::Initialize(json::JSON& node)
 {
-	//Obstacle
-	interactableName = node["Name"].ToString();
+	//Item
+	itemName = node["Name"].ToString();
 	locationId = node["LocationId"].ToInt();
 	commandNoun = node["CommandNoun"].ToString();
 	classType = node["ClassName"].ToString();
-
-
-	//Item
 	worldInfo = node["WorldInfo"].ToString();
 
 	//Note

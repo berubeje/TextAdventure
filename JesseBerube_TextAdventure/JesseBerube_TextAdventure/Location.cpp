@@ -1,10 +1,11 @@
 #include "Location.h"
 
-Location::Location(int id, std::string name, std::string desc)
+Location::Location(int id, std::string name, std::string desc, bool end)
 {
 	locationID = id;
 	locationName = name;
 	description = desc;
+	endLocation = end;
 }
 
 Location::~Location()

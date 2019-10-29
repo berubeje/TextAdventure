@@ -7,8 +7,10 @@
 class Obstacle;
 class Item;
 class Player;
+class Friend;
+class Enemy;
 class LocationManager;
-class ObstacleAndItemManager;
+class GameObjectManager;
 
 class CommandManager
 {
@@ -17,7 +19,12 @@ private:
 	std::multimap<std::string, std::string> commands;
 	std::list<Obstacle*> obstaclesInArea;
 	std::list<Item*> itemsInArea;
+	std::list<Enemy*> enemiesInArea;
 
+	Player* currentPlayer;
+	Friend* currentFriend;
+
+	bool endGame = false;
 
 public:
 	inline static CommandManager& Instance() {
@@ -26,14 +33,18 @@ public:
 	}
 
 	void UpdateInteractablesInAreaList(int& id);
-	void CreateCommands(std::vector<Obstacle*>* obstacleVec, std::vector<Item*>* itemVec);
+	void SetupCommandManager(std::vector<Obstacle*>& obstacleVec, std::vector<Item*>& itemVec, std::vector<Enemy*>& enemyVec);
 	void ValidateAndExecuteCommand(std::string com);
 	void LookCommand();
+
+	void ShowInventoryCommand();
 
 
 private:
 	inline explicit CommandManager()
 	{
+		currentPlayer = nullptr;
+		currentFriend = nullptr;
 	}
 
 	inline ~CommandManager()
@@ -53,12 +64,20 @@ private:
 	bool TwoWordCommand(std::string& com);
 	bool FourWordCommand(std::string& com);
 	bool ExecuteCommand(std::string& verb);
-	bool ExecuteCommand(std::string& verb, std::string& noun);
-	bool ExecuteCommand(std::string& verb, std::string& noun, std::string& preposition, std::string& noun2);
+	bool ExecuteCommand(std::string& verb, std::string& noun, bool& invalidNoun);
+	bool ExecuteCommand(std::string& verb, std::string& noun, std::string& noun2, bool& invalidNoun);
 
 
-	void MoveCommand(std::string& dir);
+	bool MoveCommand(std::string& dir);
+	bool OpenCloseCommand(std::string& verb, std::string& noun);
+	bool UseCommand(std::string& verb, std::string& noun, std::string& noun2);
+	bool UseCommand(std::string& verb, std::string& noun);
 	bool CheckForDoorAndBarrier(int& loc, std::string& dir);
+	bool PickupCommand(std::string& noun);
+	bool DropCommand(std::string& noun);
+	bool PressCommand(std::string& noun);
+	bool GrabFriendCommand(std::string& noun);
 
+	bool CheckForEnemy();
 };
 
