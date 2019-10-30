@@ -41,8 +41,14 @@ bool DatabaseManager::ReadFromDatabase()
 		{
 			noRecords = true;
 		}
+		
 
+		sqlite3_finalize(selectStmt);
 		sqlite3_close(db);
+
+		//std::cout << "Last error: " << sqlite3_errmsg(db) << std::endl;
+
+
 		db = nullptr;
 		return true;
 	}
@@ -74,7 +80,7 @@ bool DatabaseManager::WriteToDatabase()
 
 		if (noRecords == false)
 		{
-			result = sqlite3_prepare_v2(db, "UPDATE PlayerInfo TotalActions = ?, TotalItemPickups = ?, TotalTimesPlayed = ?, TotalDeaths = ?", -1, &stmt, 0);
+			result = sqlite3_prepare_v2(db, "UPDATE PlayerInfo SET TotalActions = ?, TotalItemPickups = ?, TotalTimesPlayed = ?, TotalDeaths = ?", -1, &stmt, 0);
 		}
 		else
 		{
@@ -124,7 +130,8 @@ bool DatabaseManager::WriteToDatabase()
 			std::cout << sqlite3_errmsg(db);
 			return false;
 		}
-
+		
+		sqlite3_finalize(stmt);
 		sqlite3_close(db);
 		db = nullptr;
 		return true;

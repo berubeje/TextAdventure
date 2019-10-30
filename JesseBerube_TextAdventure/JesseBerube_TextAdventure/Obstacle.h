@@ -25,7 +25,7 @@ public:
 
 
 	virtual bool CheckBlockage(std::string& dir) = 0;
-	virtual std::string GetDescription(int select = 1) = 0;
+	virtual std::string GetDescription() = 0;
 	virtual void Initialize(json::JSON& node) = 0;
 	virtual bool Interact(std::string& word) = 0;
 	virtual bool GetOpen() = 0;

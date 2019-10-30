@@ -658,6 +658,13 @@ bool CommandManager::FourWordUseCommand(std::string& verb, std::string& noun, st
 		}
 	}
 
+	if (foundItem == nullptr)
+	{
+		std::cout << "*You do not have that item to use.*\n" << std::endl;
+		return false;
+	}
+
+
 	for (auto obstacle : obstaclesInArea)
 	{
 		if (obstacle->GetCommandName() == noun2)
@@ -712,14 +719,7 @@ bool CommandManager::FourWordUseCommand(std::string& verb, std::string& noun, st
 		}
 	}
 
-	if (foundItem == nullptr)
-	{
-		std::cout << "*You do not have that item to use.*\n" << std::endl;
-	}
-	else
-	{
-		std::cout << "*You cannot use that item on that.*\n" << std::endl;
-	}
+	std::cout << "*You cannot use that item on that.*\n" << std::endl;
 
 	return false;
 }

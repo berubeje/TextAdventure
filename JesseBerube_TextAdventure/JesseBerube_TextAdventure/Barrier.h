@@ -16,7 +16,7 @@ public:
 	virtual ~Barrier();
 	
 	virtual bool CheckBlockage(std::string& dir);
-	virtual std::string GetDescription(int select = 1);
+	virtual std::string GetDescription();
 	virtual void Initialize(json::JSON& node);
 	virtual bool Interact(std::string& word);
 	virtual bool GetStatus() { return isFatal; }

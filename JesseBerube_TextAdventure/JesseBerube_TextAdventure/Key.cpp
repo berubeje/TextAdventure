@@ -45,6 +45,9 @@ void Key::UseItem(std::string verb, Obstacle* obstacle)
 		if (obstacle->GetName() == doorBarrierName)
 		{
 			obstacle->Resolve();
+
+			//Takes item out of them game world
+			locationId = -1;
 			DatabaseManager::Instance().IncrementActions();
 		}
 	}

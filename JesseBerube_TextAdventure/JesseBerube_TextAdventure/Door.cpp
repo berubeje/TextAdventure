@@ -9,13 +9,6 @@ Door::Door()
 
 }
 
-//Door::Door(int loc, std::string name, std::string noun, std::string block, bool state, std::string open, std::string close, bool locked, bool puzzle)
-//	:Obstacle(loc, name, noun), blockingDirection(block),  open(state), openDescription(open), closedDescription(close), isLocked(locked), isPuzzle(puzzle)
-//{
-//
-//	validVerbs.push_back("OPEN");
-//	validVerbs.push_back("CLOSE");
-//}
 
 Door::~Door()
 {
@@ -31,19 +24,18 @@ bool Door::CheckBlockage(std::string& dir)
 	return false;
 }
 
-std::string Door::GetDescription(int select)
+std::string Door::GetDescription()
 {
-	if (select == 1)
+
+	if (open == true)
 	{
-		if (open == true)
-		{
-			return openDescription + " : " + commandNoun;
-		}
-		else
-		{
-			return closedDescription + " : " + commandNoun;
-		}
+		return openDescription + " : " + commandNoun;
 	}
+	else
+	{
+		return closedDescription + " : " + commandNoun;
+	}
+
 
 	return "";
 }

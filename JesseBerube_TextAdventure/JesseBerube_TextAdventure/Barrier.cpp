@@ -30,23 +30,13 @@ bool Barrier::CheckBlockage(std::string& dir)
 	return false;
 }
 
-std::string Barrier::GetDescription(int select)
+std::string Barrier::GetDescription()
 {
-	if (select = 1)
+	if (isSolved == false)
 	{
-		if (isSolved == false)
-		{
-			return unsolvedDescription + " : " + commandNoun;
-		}
-		else
-		{
-			return solvedDescription;
-		}
+		return unsolvedDescription + " : " + commandNoun;
 	}
-	else if (select = 2)
-	{
-		return fatalDescription;
-	}
+
 	return "";
 }
 
