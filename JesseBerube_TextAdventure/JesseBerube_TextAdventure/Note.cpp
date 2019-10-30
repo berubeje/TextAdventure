@@ -1,5 +1,6 @@
 #include "Note.h"
 #include <iostream>
+#include "DatabaseManager.h"
 
 //Note::Note(int loc, std::string name, std::string noun, std::string info, std::string writing)
 //	:Item(loc, name, noun, info), writtenOnNote(writing)
@@ -21,6 +22,7 @@ void Note::UseItem(std::string verb)
 	if (verb == "USE" || verb == "READ")
 	{
 		std::cout << writtenOnNote+"\n" << std::endl;
+		DatabaseManager::Instance().IncrementActions();
 	}
 }
 

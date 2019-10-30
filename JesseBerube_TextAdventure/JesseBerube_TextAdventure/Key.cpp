@@ -3,6 +3,7 @@
 #include "Obstacle.h"
 
 #include <iostream>
+#include "DatabaseManager.h"
 
 Key::Key()
 {
@@ -44,6 +45,7 @@ void Key::UseItem(std::string verb, Obstacle* obstacle)
 		if (obstacle->GetName() == doorBarrierName)
 		{
 			obstacle->Resolve();
+			DatabaseManager::Instance().IncrementActions();
 		}
 	}
 	else

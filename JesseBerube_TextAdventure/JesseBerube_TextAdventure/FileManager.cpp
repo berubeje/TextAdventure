@@ -8,6 +8,7 @@
 
 #include <exception>
 #include <fstream>
+#include "DatabaseManager.h"
 
 
 
@@ -25,6 +26,9 @@ bool FileManager::LoadFile(bool newGame)
 
 	try {
 		std::ifstream inputStream(loadedFile);
+
+		_ASSERT_EXPR(inputStream.good(), "File Not Found. Time to crash!");
+
 		std::string str((std::istreambuf_iterator<char>(inputStream)), std::istreambuf_iterator<char>());
 
 		json::JSON doc = json::JSON::Load(str);
@@ -41,6 +45,7 @@ bool FileManager::LoadFile(bool newGame)
 		GameObjectManager::Instance().CreatePlayerAndFriendFromJSON(doc["PlayerInfo"], doc["Friend"]);
 		CommandManager::Instance().SetupCommandManager(GameObjectManager::Instance().GetObstacleArray(),GameObjectManager::Instance().GetItemArray(), GameObjectManager::Instance().GetEnemyArray());
 
+		DatabaseManager::Instance().Initialize("TextAdventureDatabase.db");
 
 		return true;
 	}

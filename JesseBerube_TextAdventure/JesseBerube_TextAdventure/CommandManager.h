@@ -20,8 +20,14 @@ private:
 	std::multimap<std::string, std::string> commands;
 
 	std::map<std::string, std::function<bool()>> oneWordCommands;
-	std::map<std::string, std::function<bool(std::string&, std::string&, bool&)>> twoWordCommands;
-	std::map<std::string, std::function<bool(std::string&, std::string&, std::string&, bool&)>> fourWordCommands;
+	std::map<std::string, std::function<bool(std::string&, bool&)>> twoWordCommands;
+
+	//Not used in this version, but added incase new commands are added
+	std::map<std::string, std::function<bool(std::string&, std::string&, bool&)>> fourWordCommands;
+
+	//Some commands needs the verb used when executing
+	std::map<std::string, std::function<bool(std::string&, std::string&, bool&)>> verbTwoWordCommands;
+	std::map<std::string, std::function<bool(std::string&, std::string&, std::string&, bool&)>> verbFourWordCommands;
 
 
 	std::list<Obstacle*> obstaclesInArea;
@@ -75,14 +81,15 @@ private:
 	bool ExecuteCommand(std::string& verb, std::string& noun, std::string& noun2, bool& invalidNoun);
 
 	bool ShowInventoryCommand();
-	bool MoveCommand(std::string& dir);
-	bool OpenCloseCommand(std::string& verb, std::string& noun);
-	bool UseCommand(std::string& verb, std::string& noun, std::string& noun2);
-	bool UseCommand(std::string& verb, std::string& noun, bool& invalidNoun);
-	bool PickupCommand(std::string& noun);
-	bool DropCommand(std::string& noun);
-	bool PressCommand(std::string& noun);
-	bool GrabFriendCommand(std::string& noun);
+	bool SaveCommand();
+	bool MoveCommand(std::string& dir, bool& invalidDir);
+	bool OpenCloseCommand(std::string& verb, std::string& noun, bool& invalidNoun);
+	bool FourWordUseCommand(std::string& verb, std::string& noun, std::string& noun2, bool& invalidNoun);
+	bool TwoWordUseCommand(std::string& verb, std::string& noun, bool& invalidNoun);
+	bool PickupCommand(std::string& noun, bool& invalidNoun);
+	bool DropCommand(std::string& noun, bool& invalidNoun);
+	bool PressCommand(std::string& noun, bool& invalidNoun);
+	bool GrabFriendCommand(std::string& noun, bool& invalidNoun);
 
 	bool CheckForDoorAndBarrier(int& loc, std::string& dir);
 	bool CheckForEnemy();

@@ -1,5 +1,6 @@
 #include "Player.h"
 #include "GameObjectManager.h"
+#include "DatabaseManager.h"
 
 Player::Player()
 {
@@ -56,6 +57,6 @@ void Player::Die()
 		hasFriend = false;
 		std::cout << "Your friend is sent back to where you found him.\n" << std::endl;
 	}
-
+	DatabaseManager::Instance().IncrementTotalDeaths();
 	location = 1;
 }

@@ -1,6 +1,7 @@
 #include "Weapon.h"
 #include "Enemy.h"
 #include "Obstacle.h"
+#include "DatabaseManager.h"
 
 //Weapon::Weapon(int loc, std::string name, std::string noun, std::string info)
 //	:Item(loc,name,noun,info)
@@ -33,6 +34,7 @@ void Weapon::UseItem(std::string verb, Enemy* enemy)
 	if (verb == "ATTACK")
 	{
 		enemy->KillEnemy();
+		DatabaseManager::Instance().IncrementActions();
 	}
 	else
 	{

@@ -1,0 +1,456 @@
+{
+  "Enemies" : [{
+      "ClassName" : "Enemy",
+      "CommandNoun" : "SKELETON",
+      "IsAlive" : true,
+      "IsAliveDescription" : "There is a skeleton blocking your path, readying for an attack!",
+      "KilledDescription" : "The skeleton crumbles to dust from your attack!",
+      "KilledPlayerDescription" : "The skeleton slashes at you and connects, ending your life where you stand.",
+      "LocationId" : 18,
+      "Name" : "Skeleton",
+      "TriggerOnFriend" : false
+    }, {
+      "ClassName" : "Enemy",
+      "CommandNoun" : "MINOTAUR",
+      "IsAlive" : true,
+      "IsAliveDescription" : "There is a minotaur blocking your path home, readying to attack!",
+      "KilledDescription" : "You fell the minotaur with your strike, the way home clear!",
+      "KilledPlayerDescription" : "The minotaur kills you on the spot, taking your friend away.",
+      "LocationId" : 12,
+      "Name" : "Minotaur",
+      "TriggerOnFriend" : true
+    }],
+  "Friend" : {
+    "FriendLocation" : 20
+  },
+  "Items" : [{
+      "ClassName" : "Key",
+      "CommandNoun" : "KEY",
+      "DoorBarrierName" : "Closet Door",
+      "LocationId" : 7,
+      "Name" : "Bronze Key",
+      "WorldInfo" : "There is a bronze key on the floor. Why is it here of all places?"
+    }, {
+      "ClassName" : "Note",
+      "CommandNoun" : "LETTER",
+      "LocationId" : 9,
+      "Name" : "Friend's Note",
+      "WorldInfo" : "There is a letter on the counter.",
+      "WrittenOnNote" : "Hello My Friend, If you are reading this, I have returned. Whether I am dead or not, I am not certain. If you want to find me, go down to the cellar. You will know what I mean."
+    }, {
+      "ClassName" : "Key",
+      "CommandNoun" : "TORCH",
+      "DoorBarrierName" : "Dark",
+      "LocationId" : 4,
+      "Name" : "Torch",
+      "WorldInfo" : "There is a torch on the shelf."
+    }, {
+      "ClassName" : "Weapon",
+      "CommandNoun" : "SPEAR",
+      "LocationId" : 15,
+      "Name" : "Spear",
+      "WorldInfo" : "There is a spear on the ground, with an inscription 'Its dangerous to go alone, take this."
+    }, {
+      "ClassName" : "Key",
+      "CommandNoun" : "ROPE",
+      "DoorBarrierName" : "Cliff",
+      "LocationId" : 16,
+      "Name" : "Rope",
+      "WorldInfo" : "There is wrapped up rope in the tent. It looks strong!"
+    }, {
+      "ClassName" : "Key",
+      "CommandNoun" : "BOMB",
+      "DoorBarrierName" : "Rubble",
+      "LocationId" : 16,
+      "Name" : "Bomb",
+      "WorldInfo" : "There is a bomb in the tent."
+    }, {
+      "ClassName" : "Note",
+      "CommandNoun" : "NOTE",
+      "LocationId" : 8,
+      "Name" : "Note",
+      "WorldInfo" : "There is a note on the table.",
+      "WrittenOnNote" : "The K****i C**e"
+    }],
+  "Locations" : [{
+      "Description" : "The mansion has been in ruins for decades, the plant life having grown over it after all these years. All the windows are boarded up, unable to look inside from the front yard.",
+      "Directions" : [{
+          "CompassDirection" : "NORTH",
+          "ConditionFailure" : "",
+          "ToLocationId" : 2
+        }, {
+          "CompassDirection" : "SOUTH",
+          "ConditionFailure" : "Are you really going to leave your friend behind?",
+          "ToLocationId" : ""
+        }],
+      "EndLocation" : false,
+      "LocationId" : 1,
+      "LocationName" : "Front Yard"
+    }, {
+      "Description" : "The interior is crumbling from the lack of upkeep. Many of the doors are in pieces, and the stairs to the second floor has crumbled away, leaving it inaccessible.",
+      "Directions" : [{
+          "CompassDirection" : "NORTH",
+          "ConditionFailure" : "",
+          "ToLocationId" : 3
+        }, {
+          "CompassDirection" : "EAST",
+          "ConditionFailure" : "",
+          "ToLocationId" : 5
+        }, {
+          "CompassDirection" : "SOUTH",
+          "ConditionFailure" : "",
+          "ToLocationId" : 1
+        }, {
+          "CompassDirection" : "WEST",
+          "ConditionFailure" : "",
+          "ToLocationId" : 8
+        }],
+      "EndLocation" : false,
+      "LocationId" : 2,
+      "LocationName" : "Entrance Hall"
+    }, {
+      "Description" : "You find yourself in what used to be a library. Many shelves line the walls of the room, but any books that are in the room looks to have deteriorated over time. There looks to be a closet in the east side of the library.",
+      "Directions" : [{
+          "CompassDirection" : "EAST",
+          "ConditionFailure" : "",
+          "ToLocationId" : 4
+        }, {
+          "CompassDirection" : "SOUTH",
+          "ConditionFailure" : "",
+          "ToLocationId" : 2
+        }],
+      "EndLocation" : false,
+      "LocationId" : 3,
+      "LocationName" : "Library"
+    }, {
+      "Description" : "The closet is almost completely empty other than the few cobwebs in the corners. ",
+      "Directions" : [{
+          "CompassDirection" : "WEST",
+          "ConditionFailure" : "The closet door is closed",
+          "ToLocationId" : 3
+        }],
+      "EndLocation" : false,
+      "LocationId" : 4,
+      "LocationName" : "Closet"
+    }, {
+      "Description" : "There is a long table in the center of the room with plenty of chairs around it. This looks to be the dining hall. ",
+      "Directions" : [{
+          "CompassDirection" : "EAST",
+          "ConditionFailure" : "",
+          "ToLocationId" : 6
+        }, {
+          "CompassDirection" : "WEST",
+          "ConditionFailure" : "",
+          "ToLocationId" : 2
+        }],
+      "EndLocation" : false,
+      "LocationId" : 5,
+      "LocationName" : "Dining Hall"
+    }, {
+      "Description" : "This looks to be the kitchen, though the appliances are in disrepair and are no longer functional.  Some of the cobwebs look disturbed around the opened cupboards. Your friend may have been here!",
+      "Directions" : [{
+          "CompassDirection" : "NORTH",
+          "ConditionFailure" : "The door is closed.",
+          "ToLocationId" : 7
+        }, {
+          "CompassDirection" : "WEST",
+          "ConditionFailure" : "",
+          "ToLocationId" : 5
+        }],
+      "EndLocation" : false,
+      "LocationId" : 6,
+      "LocationName" : "Kitchen"
+    }, {
+      "Description" : "There is not much food left in the pantry. Any food left is either rotten or already taken. The room smells rotten. ",
+      "Directions" : [{
+          "CompassDirection" : "SOUTH",
+          "ConditionFailure" : "",
+          "ToLocationId" : 6
+        }],
+      "EndLocation" : false,
+      "LocationId" : 7,
+      "LocationName" : "Pantry"
+    }, {
+      "Description" : "The hallway is in bad shape, muiltiple doors being blocked by rubble, with the doors at the ends of the hallway decayed and open.",
+      "Directions" : [{
+          "CompassDirection" : "NORTH",
+          "ConditionFailure" : "",
+          "ToLocationId" : 9
+        }, {
+          "CompassDirection" : "EAST",
+          "ConditionFailure" : "",
+          "ToLocationId" : 2
+        }, {
+          "CompassDirection" : "SOUTH",
+          "ConditionFailure" : "",
+          "ToLocationId" : 10
+        }],
+      "EndLocation" : false,
+      "LocationId" : 8,
+      "LocationName" : "Hallway"
+    }, {
+      "Description" : "The bedroom is as in good of shape as the rest of the mansion, though the bed seems to have held up well compared to the rest of the mansion, even though the legs look rotten and could  fall apart at any moment.",
+      "Directions" : [{
+          "CompassDirection" : "SOUTH",
+          "ConditionFailure" : "",
+          "ToLocationId" : 8
+        }],
+      "EndLocation" : false,
+      "LocationId" : 9,
+      "LocationName" : "Bedroom"
+    }, {
+      "Description" : "The sound of water dripping can be heard inside the cellar. There are some rotting kegs in the room, looking like this used to be a place to store wine.",
+      "Directions" : [{
+          "CompassDirection" : "NORTH",
+          "ConditionFailure" : "",
+          "ToLocationId" : 8
+        }, {
+          "CompassDirection" : "WEST",
+          "ConditionFailure" : "",
+          "ToLocationId" : 11
+        }],
+      "EndLocation" : false,
+      "LocationId" : 10,
+      "LocationName" : "Cellar"
+    }, {
+      "Description" : "This room looks nothing like the rest of the mansion. The room is in peak condition, looking like something out of a fantasy, like it exists outside of time. There are books in languages you cannot understand, as well as medieval weaponry and armor, though all of it attached securely to the wall with no way to take them off. To the north of the room, there is a strange door that has buttons on it. The buttons are arrows in point up, down, left, and right, two circle buttons labeled A and B, and two other buttons labeled start and select.",
+      "Directions" : [{
+          "CompassDirection" : "NORTH",
+          "ConditionFailure" : "The almighty controller door blocks your path.",
+          "ToLocationId" : 12
+        }, {
+          "CompassDirection" : "EAST",
+          "ConditionFailure" : "The door is closed.",
+          "ToLocationId" : 10
+        }],
+      "EndLocation" : true,
+      "LocationId" : 11,
+      "LocationName" : "Mysterious Room"
+    }, {
+      "Description" : "You are in a mysterious forest with flora and critters you have never seen before. The leaves on the trees has exotic colors, and the critters running around are minding their own business.",
+      "Directions" : [{
+          "CompassDirection" : "EAST",
+          "ConditionFailure" : "",
+          "ToLocationId" : 13
+        }, {
+          "CompassDirection" : "SOUTH",
+          "ConditionFailure" : "",
+          "ToLocationId" : 11
+        }],
+      "EndLocation" : false,
+      "LocationId" : 12,
+      "LocationName" : "Forest 1"
+    }, {
+      "Description" : "The forest is thicker here, maing it darker as the sun does not get through as well. You can hear the sound of running water in the distance.",
+      "Directions" : [{
+          "CompassDirection" : "NORTH",
+          "ConditionFailure" : "",
+          "ToLocationId" : 14
+        }, {
+          "CompassDirection" : "WEST",
+          "ConditionFailure" : "",
+          "ToLocationId" : 12
+        }],
+      "EndLocation" : false,
+      "LocationId" : 13,
+      "LocationName" : "Forest 2"
+    }, {
+      "Description" : "You have reached a river in a clearing, the water running from the east to the west. There is small cabin to the west, built alongside the river. There is a crumbling path leading to the north.",
+      "Directions" : [{
+          "CompassDirection" : "NORTH",
+          "ConditionFailure" : "",
+          "ToLocationId" : 16
+        }, {
+          "CompassDirection" : "SOUTH",
+          "ConditionFailure" : "",
+          "ToLocationId" : 13
+        }, {
+          "CompassDirection" : "WEST",
+          "ConditionFailure" : "The cabin door is closed.",
+          "ToLocationId" : 15
+        }],
+      "EndLocation" : false,
+      "LocationId" : 14,
+      "LocationName" : "River"
+    }, {
+      "Description" : "The cabin is nice and comfy, having mounted trophies of things you have never seen before. It looks like a hunter's cabin. There's no one home. ",
+      "Directions" : [{
+          "CompassDirection" : "EAST",
+          "ConditionFailure" : "",
+          "ToLocationId" : 14
+        }],
+      "EndLocation" : false,
+      "LocationId" : 15,
+      "LocationName" : "Hunter's Cabin"
+    }, {
+      "Description" : "You arrive at what appears to be crumbling ruins of what looks to be a burial site. Outside the entrance, there is a camp. Looking at the belongings, it looks like it belongs to your friend.",
+      "Directions" : [{
+          "CompassDirection" : "EAST",
+          "ConditionFailure" : "",
+          "ToLocationId" : 17
+        }, {
+          "CompassDirection" : "SOUTH",
+          "ConditionFailure" : "",
+          "ToLocationId" : 14
+        }],
+      "EndLocation" : false,
+      "LocationId" : 16,
+      "LocationName" : "Ruins Entrance and Camp"
+    }, {
+      "Description" : "The ruins seem to have been crumbling over time. There are coffins all along the walls, some of them open and empty, with skeletons along the floor.",
+      "Directions" : [{
+          "CompassDirection" : "SOUTH",
+          "ConditionFailure" : "",
+          "ToLocationId" : 18
+        }, {
+          "CompassDirection" : "WEST",
+          "ConditionFailure" : "",
+          "ToLocationId" : 16
+        }],
+      "EndLocation" : false,
+      "LocationId" : 17,
+      "LocationName" : "Ruins 1"
+    }, {
+      "Description" : "The area is more of the same, though one coffin is open, looking like it was recent with the disturbed dust. ",
+      "Directions" : [{
+          "CompassDirection" : "NORTH",
+          "ConditionFailure" : "",
+          "ToLocationId" : 17
+        }, {
+          "CompassDirection" : "EAST",
+          "ConditionFailure" : "",
+          "ToLocationId" : 19
+        }],
+      "EndLocation" : false,
+      "LocationId" : 18,
+      "LocationName" : "Ruins 2"
+    }, {
+      "Description" : "The area has a pit going down. There is a piece of rope next to the edge, but it looks like it was cut by something sharp. It was most likely the skeleton from before.",
+      "Directions" : [{
+          "CompassDirection" : "WEST",
+          "ConditionFailure" : "",
+          "ToLocationId" : 18
+        }, {
+          "CompassDirection" : "DOWN",
+          "ConditionFailure" : "",
+          "ToLocationId" : 20
+        }],
+      "EndLocation" : false,
+      "LocationId" : 19,
+      "LocationName" : "Cliff"
+    }, {
+      "Description" : "You have reached your friend! You just need to GRAB them!",
+      "Directions" : [{
+          "CompassDirection" : "UP",
+          "ConditionFailure" : "",
+          "ToLocationId" : 19
+        }],
+      "EndLocation" : false,
+      "LocationId" : 20,
+      "LocationName" : "Bottom Of Cliff"
+    }],
+  "Obstacles" : [{
+      "BlockingDirection" : "NORTH",
+      "ClassName" : "Door",
+      "ClosedDescription" : "The front door is closed.",
+      "CommandNoun" : "DOOR",
+      "IsLocked" : false,
+      "IsPuzzle" : false,
+      "LocationId" : 1,
+      "Name" : "Front Door",
+      "Open" : true,
+      "OpenDescription" : "The front door is open."
+    }, {
+      "BlockingDirection" : "NORTH",
+      "ClassName" : "Door",
+      "ClosedDescription" : "The pantry door is closed.",
+      "CommandNoun" : "DOOR",
+      "IsLocked" : false,
+      "IsPuzzle" : false,
+      "LocationId" : 6,
+      "Name" : "Pantry Door",
+      "Open" : false,
+      "OpenDescription" : "The pantry door is open."
+    }, {
+      "BlockingDirection" : "EAST",
+      "ClassName" : "Door",
+      "ClosedDescription" : "The closet door is closed.",
+      "CommandNoun" : "DOOR",
+      "IsLocked" : true,
+      "IsPuzzle" : false,
+      "LocationId" : 3,
+      "Name" : "Closet Door",
+      "Open" : false,
+      "OpenDescription" : "The closet door is open."
+    }, {
+      "BlockingDirection" : "WEST",
+      "ClassName" : "Door",
+      "ClosedDescription" : "The mysterious door is closed.",
+      "CommandNoun" : "DOOR",
+      "IsLocked" : false,
+      "IsPuzzle" : false,
+      "LocationId" : 10,
+      "Name" : "Mysterious Door",
+      "Open" : false,
+      "OpenDescription" : "The mysterious door is open."
+    }, {
+      "BlockingDirection" : "WEST",
+      "ClassName" : "Door",
+      "ClosedDescription" : "The cabin door is closed.",
+      "CommandNoun" : "DOOR",
+      "IsLocked" : false,
+      "IsPuzzle" : false,
+      "LocationId" : 14,
+      "Name" : "Cabin Door",
+      "Open" : false,
+      "OpenDescription" : "The cabin door is open."
+    }, {
+      "BlockingDirection" : "NORTH",
+      "ClassName" : "Door",
+      "ClosedDescription" : "The Controller Door is closed.",
+      "CommandNoun" : "PUZZLE",
+      "IsLocked" : true,
+      "IsPuzzle" : true,
+      "LocationId" : 11,
+      "Name" : "Puzzle Door",
+      "Open" : false,
+      "OpenDescription" : "The Controller Door is open."
+    }, {
+      "BlockingDirection" : "SOUTH",
+      "ClassName" : "Barrier",
+      "CommandNoun" : "DARK",
+      "FatalDescription" : "You try to use the stairs in the dark, causing you to stumble on a rotting step and fall, causing head trauma.",
+      "IsFatal" : true,
+      "IsSolved" : false,
+      "LocationId" : 8,
+      "Name" : "Dark",
+      "SolvedDescription" : "The torch illuminates the dark, allowing you to see!",
+      "UnsolvedDescription" : "The stairs to the south are too dark to use."
+    }, {
+      "BlockingDirection" : "DOWN",
+      "ClassName" : "Barrier",
+      "CommandNoun" : "CLIFF",
+      "FatalDescription" : "You decided to just walk off the cliff... Smart!",
+      "IsFatal" : true,
+      "IsSolved" : false,
+      "LocationId" : 19,
+      "Name" : "Cliff",
+      "SolvedDescription" : "The rope allows you to saftely go down to get your friend.",
+      "UnsolvedDescription" : "There is a cliff. You can hear your friend calling for help from below!"
+    }, {
+      "BlockingDirection" : "EAST",
+      "ClassName" : "Barrier",
+      "CommandNoun" : "RUBBLE",
+      "FatalDescription" : "",
+      "IsFatal" : false,
+      "IsSolved" : false,
+      "LocationId" : 18,
+      "Name" : "Rubble",
+      "SolvedDescription" : "The bomb explodes and clears the rubble, letting you pass!",
+      "UnsolvedDescription" : "There is rubble blocking your path to the east."
+    }],
+  "PlayerInfo" : {
+    "HasFriend" : false,
+    "PlayerLocation" : 1
+  }
+}

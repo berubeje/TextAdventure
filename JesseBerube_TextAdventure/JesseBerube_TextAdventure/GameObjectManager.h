@@ -68,6 +68,11 @@ private:
 			delete it;
 		}
 
+		for (auto enemy: enemyVector)
+		{
+			delete enemy;
+		}
+
 		delete player;
 		delete friendLocation;
 	}

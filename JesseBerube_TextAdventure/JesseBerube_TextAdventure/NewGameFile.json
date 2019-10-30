@@ -210,7 +210,7 @@
         },
         {
           "CompassDirection": "SOUTH",
-          "ToLocationId": 5,
+          "ToLocationId": "",
           "ConditionFailure": "Are you really going to leave your friend behind?"
         }
       ],

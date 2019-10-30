@@ -169,6 +169,7 @@
     <ClCompile Include="LocationManager.cpp" />
     <ClCompile Include="Note.cpp" />
     <ClCompile Include="Player.cpp" />
+    <ClCompile Include="sqlite3.c" />
     <ClCompile Include="TextGame.cpp" />
     <ClCompile Include="Weapon.cpp" />
   </ItemGroup>
@@ -190,6 +191,7 @@
     <ClInclude Include="LocationManager.h" />
     <ClInclude Include="Note.h" />
     <ClInclude Include="Player.h" />
+    <ClInclude Include="sqlite3.h" />
     <ClInclude Include="TextGame.h" />
     <ClInclude Include="Weapon.h" />
   </ItemGroup>

@@ -1,6 +1,7 @@
 #include "TextGame.h"
 #include <algorithm>
 #include <regex>
+#include "DatabaseManager.h"
 
 
 
@@ -65,7 +66,9 @@ void TextGame::StartGame()
 
 void TextGame::GameLoop()
 {
+	DatabaseManager::Instance().IncrementTotalTimesPlay();
 	std::string response;
+
 	CommandManager::Instance().LookCommand();
 	std::getline(std::cin, response);
 	do
@@ -79,6 +82,7 @@ void TextGame::GameLoop()
 
 			if (response == "QUIT")
 			{
+				DatabaseManager::Instance().WriteToDatabase();
 				return;
 			}
 
@@ -87,6 +91,7 @@ void TextGame::GameLoop()
 
 			if (endGame == true)
 			{
+				DatabaseManager::Instance().WriteToDatabase();
 				return;
 			}
 

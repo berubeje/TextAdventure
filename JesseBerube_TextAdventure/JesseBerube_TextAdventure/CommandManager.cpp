@@ -9,6 +9,7 @@
 #include <iostream>
 #include "FileManager.h"
 #include "TextGame.h"
+#include "DatabaseManager.h"
 
 
 
@@ -68,13 +69,28 @@ void CommandManager::SetupCommandManager(std::vector<Obstacle*>& obstacleVec, st
 	//Setup command function pointers
 	//oneWordCommands.emplace("LOOK", std::function<bool()>(CommandManager::Instance().LookCommand));
 	oneWordCommands.emplace("LOOK", std::bind(&CommandManager::LookCommand, &CommandManager::Instance()));
+	oneWordCommands.emplace("INVENTORY", std::bind(&CommandManager::ShowInventoryCommand, &CommandManager::Instance()));
+	oneWordCommands.emplace("SAVE", std::bind(&CommandManager::SaveCommand, &CommandManager::Instance()));
 	
-	
-	twoWordCommands.emplace("USE", std::function<bool(std::string&, std::string&, bool&)>(CommandManager::Instance().UseCommand));
+
+	twoWordCommands.emplace("MOVE", std::bind(&CommandManager::MoveCommand, &CommandManager::Instance(), std::placeholders::_1, std::placeholders::_2));
+	twoWordCommands.emplace("PICKUP", std::bind(&CommandManager::PickupCommand, &CommandManager::Instance(), std::placeholders::_1, std::placeholders::_2));
+	twoWordCommands.emplace("DROP", std::bind(&CommandManager::DropCommand, &CommandManager::Instance(), std::placeholders::_1, std::placeholders::_2));
+	twoWordCommands.emplace("GRAB", std::bind(&CommandManager::GrabFriendCommand, &CommandManager::Instance(), std::placeholders::_1, std::placeholders::_2));
+	twoWordCommands.emplace("PRESS", std::bind(&CommandManager::PressCommand, &CommandManager::Instance(), std::placeholders::_1, std::placeholders::_2));
+
+	verbTwoWordCommands.emplace("USE", std::bind(&CommandManager::TwoWordUseCommand, &CommandManager::Instance(), std::placeholders::_1, std::placeholders::_2, std::placeholders::_3));
+	verbTwoWordCommands.emplace("ATTACK", std::bind(&CommandManager::TwoWordUseCommand, &CommandManager::Instance(), std::placeholders::_1, std::placeholders::_2, std::placeholders::_3));
+	verbTwoWordCommands.emplace("READ", std::bind(&CommandManager::TwoWordUseCommand, &CommandManager::Instance(), std::placeholders::_1, std::placeholders::_2, std::placeholders::_3));
+	verbTwoWordCommands.emplace("OPEN", std::bind(&CommandManager::OpenCloseCommand, &CommandManager::Instance(), std::placeholders::_1, std::placeholders::_2, std::placeholders::_3));
+	verbTwoWordCommands.emplace("CLOSE", std::bind(&CommandManager::OpenCloseCommand, &CommandManager::Instance(), std::placeholders::_1, std::placeholders::_2, std::placeholders::_3));
+
+	verbFourWordCommands.emplace("USE", std::bind(&CommandManager::FourWordUseCommand, &CommandManager::Instance(), std::placeholders::_1, std::placeholders::_2, std::placeholders::_3, std::placeholders::_4));
+	verbFourWordCommands.emplace("ATTACK", std::bind(&CommandManager::FourWordUseCommand, &CommandManager::Instance(), std::placeholders::_1, std::placeholders::_2, std::placeholders::_3, std::placeholders::_4));
+	verbFourWordCommands.emplace("READ", std::bind(&CommandManager::FourWordUseCommand, &CommandManager::Instance(), std::placeholders::_1, std::placeholders::_2, std::placeholders::_3, std::placeholders::_4));
 	
 
 	//This will be used to stop repeating nouns being added into the command list. Only one version of the noun is needed.
-	//std::vector<std::string> existingNouns;
 
 	for (auto ob : obstacleVec)
 	{
@@ -348,109 +364,42 @@ bool CommandManager::FourWordCommand(std::string& com)
 
 bool CommandManager::ExecuteCommand(std::string& verb)
 {
-	if (verb == "LOOK")
+	if (oneWordCommands.find(verb) != oneWordCommands.end())
 	{
-		LookCommand();
-	}
-	else if (verb == "SAVE")
-	{
-		FileManager::Instance().SaveFile();
-	}
-	else if (verb == "INVENTORY")
-	{
-		ShowInventoryCommand();
+		return oneWordCommands[verb]();
 	}
 	else
 	{
-		std::cout << commands.find(verb)->second << std::endl;
+		std::cout << commands.find(verb)->second +"\n"<< std::endl;
 	}
-
-	return true;
+	return false;
 }
 
 bool CommandManager::ExecuteCommand(std::string& verb, std::string& noun, bool& invalidNoun)
 {
-	if (verb == "MOVE")
+	if (verbTwoWordCommands.find(verb) != verbTwoWordCommands.end())
 	{
-		if (invalidNoun == true)
-		{
-			std::cout << "*Not a valid direction*\n" << std::endl;
-			return false;
-		}
-		MoveCommand(noun);
+		return verbTwoWordCommands[verb](verb, noun, invalidNoun);
 	}
-	else if(verb == "OPEN" || verb == "CLOSE")
+	else if (twoWordCommands.find(verb) != twoWordCommands.end())
 	{
-		if (invalidNoun == true)
-		{
-			std::cout << "*There is no door around*\n" << std::endl;
-			return false;
-		}
-		OpenCloseCommand(verb, noun);
-	}
-	else if (verb == "PRESS")
-	{
-		if (invalidNoun == true)
-		{
-			std::cout << "*There is nothing to press around*\n" << std::endl;
-			return false;
-		}
-		PressCommand(noun);
-	}
-	else if(verb == "PICKUP")
-	{
-		if (invalidNoun == true)
-		{
-			std::cout << "*That item is not here*\n" << std::endl;
-			return false;
-		}
-		PickupCommand(noun);
-	}
-	else if (verb == "DROP")
-	{
-		if (invalidNoun == true)
-		{
-			std::cout << "*You do not have that item*\n" << std::endl;
-			return false;
-		}
-		DropCommand(noun);
-	}
-	else if (verb == "USE" || verb == "ATTACK" || verb == "READ")
-	{
-		if (invalidNoun == true)
-		{
-			std::cout << "*You do not have that item*\n" << std::endl;
-			return false;
-		}
-		bool test = false;
-		UseCommand(verb, noun, test);
-	}
-	else if (verb == "GRAB")
-	{
-		if (invalidNoun == true)
-		{
-			std::cout << "*That is not your friend...*\n" << std::endl;
-			return false;
-		}
-		GrabFriendCommand(noun);
+		return twoWordCommands[verb](noun, invalidNoun);
 	}
 
-	return true;
+	return false;
 }
 
 bool CommandManager::ExecuteCommand(std::string& verb, std::string& noun, std::string& noun2, bool& invalidNoun)
 {
-	if (verb == "USE" || verb == "ATTACK" || verb == "READ")
+	if (verbFourWordCommands.find(verb) != verbFourWordCommands.end())
 	{
-		if (invalidNoun == true)
-		{
-			std::cout << "*You do not have that item or what you are trying to use it on does not exist*\n" << std::endl;
-			return false;
-		}
-		UseCommand(verb, noun, noun2);
+		return verbFourWordCommands[verb](verb, noun, noun2, invalidNoun);
 	}
-
-	return true;
+	else if (fourWordCommands.find(verb) != fourWordCommands.end())
+	{
+		return fourWordCommands[verb](noun, noun2, invalidNoun);
+	}
+	return false;
 }
 
 bool CommandManager::LookCommand()
@@ -494,6 +443,12 @@ bool CommandManager::LookCommand()
 	return true;
 }
 
+bool CommandManager::SaveCommand()
+{
+	FileManager::Instance().SaveFile();
+	return true;
+}
+
 bool CommandManager::ShowInventoryCommand()
 {
 	std::string output = "";
@@ -512,8 +467,14 @@ bool CommandManager::ShowInventoryCommand()
 	return true;
 }
 
-bool CommandManager::MoveCommand(std::string& dir)
+bool CommandManager::MoveCommand(std::string& dir, bool& invalidDir)
 {
+	if (invalidDir == true)
+	{
+		std::cout << "*Not a valid direction*\n" << std::endl;
+		return false;
+	}
+
 	int currentLocation = currentPlayer->GetLocation();
 
 	Location* loc = LocationManager::Instance().GetLocation(currentLocation);
@@ -529,6 +490,8 @@ bool CommandManager::MoveCommand(std::string& dir)
 
 			currentPlayer->ChangeLocation(newLoc);
 			UpdateInteractablesInAreaList(newLoc);
+			DatabaseManager::Instance().IncrementActions();
+
 
 			if (theNewLocation->GetEndLocation() == true && currentPlayer->GetFriend() == true)
 			{
@@ -568,8 +531,15 @@ bool CommandManager::MoveCommand(std::string& dir)
 	}
 }
 
-bool CommandManager::OpenCloseCommand(std::string& verb, std::string& noun)
+bool CommandManager::OpenCloseCommand(std::string& verb, std::string& noun, bool& invalidNoun)
 {
+
+	if (invalidNoun == true)
+	{
+		std::cout << "*That door is not around here*\n" << std::endl;
+		return false;
+	}
+
 	for (auto obstacle : obstaclesInArea)
 	{
 		if (obstacle->GetCommandName() == noun)
@@ -578,8 +548,10 @@ bool CommandManager::OpenCloseCommand(std::string& verb, std::string& noun)
 			{
 				return false;
 			}
+
 			if (obstacle->Interact(verb) == true)
 			{
+				DatabaseManager::Instance().IncrementActions();
 				return true;
 			}
 			else
@@ -591,8 +563,13 @@ bool CommandManager::OpenCloseCommand(std::string& verb, std::string& noun)
 	return false;
 }
 
-bool CommandManager::PickupCommand(std::string& noun)
+bool CommandManager::PickupCommand(std::string& noun, bool& invalidNoun)
 {
+	if (invalidNoun == true)
+	{
+		std::cout << "*That item is not here*\n" << std::endl;
+		return false;
+	}
 	for (auto item : itemsInArea)
 	{
 		if (item->GetCommandName() == noun)
@@ -605,6 +582,9 @@ bool CommandManager::PickupCommand(std::string& noun)
 			item->SetLocation(0);
 			std::cout << "*You picked up the " + item->GetName() + "*\n"  << std::endl;
 
+			DatabaseManager::Instance().IncrementActions();
+			DatabaseManager::Instance().IncrementItemPickups();
+
 			return true;
 		}
 	}
@@ -612,8 +592,14 @@ bool CommandManager::PickupCommand(std::string& noun)
 	return false;
 }
 
-bool CommandManager::DropCommand(std::string& noun)
+bool CommandManager::DropCommand(std::string& noun, bool& invalidNoun)
 {
+	if (invalidNoun == true)
+	{
+		std::cout << "*You do not have that item*\n" << std::endl;
+		return false;
+	}
+
 	for (auto item : currentPlayer->GetInventory())
 	{
 		if (item->GetCommandName() == noun)
@@ -625,6 +611,9 @@ bool CommandManager::DropCommand(std::string& noun)
 			currentPlayer->RemoveFromInventory(item);
 			item->SetLocation(currentPlayer->GetLocation());
 			std::cout << "*You dropped the " + item->GetName() + "*\n" << std::endl;
+
+			DatabaseManager::Instance().IncrementActions();
+
 			return true;
 		}
 	}
@@ -632,9 +621,14 @@ bool CommandManager::DropCommand(std::string& noun)
 	return false;
 }
 
-bool CommandManager::UseCommand(std::string& verb, std::string& noun, bool& invalidNoun)
+bool CommandManager::TwoWordUseCommand(std::string& verb, std::string& noun, bool& invalidNoun)
 {
-	
+	if (invalidNoun == true)
+	{
+		std::cout << "*You do not have that item to use*\n" << std::endl;
+		return false;
+	}
+
 	for (auto item : currentPlayer->GetInventory())
 	{
 		if (item->GetCommandName() == noun)
@@ -651,88 +645,7 @@ bool CommandManager::UseCommand(std::string& verb, std::string& noun, bool& inva
 	return false;
 }
 
-bool CommandManager::PressCommand(std::string& noun)
-{
-	for (auto obstacle : obstaclesInArea)
-	{
-		//done so you dont need to type PUZZLE for every button input
-		if (obstacle->GetCommandName() == "PUZZLE")
-		{
-			if (obstacle->Interact(noun) == true)
-			{
-				return true;
-			}
-			else
-			{
-				return false;
-			}
-		}
-		else if (obstacle->GetCommandName() == noun)
-		{
-			if (obstacle->Interact(noun) == true)
-			{
-				return true;
-			}
-			else
-			{
-				return false;
-			}
-		}
-	}
-	return false;
-}
-
-bool CommandManager::GrabFriendCommand(std::string& noun)
-{
-	if (noun == "FRIEND")
-	{
-		if (currentFriend->GetFriendLocation() == currentPlayer->GetLocation())
-		{
-			if (CheckForEnemy() == true)
-			{
-				return false;
-			}
-			currentPlayer->SetFriend(true);
-			std::cout << "*You found your friend! Now you just need to get back to the mansion!*\n" << std::endl;
-
-			return true;
-		}
-	}
-	std::cout << "*That is not your friend...*\n" << std::endl;
-	return false;
-}
-
-bool CommandManager::CheckForEnemy()
-{
-	for (auto enemy : enemiesInArea)
-	{
-		if (enemy->GetAlive() == true)
-		{
-			if (enemy->GetFriendTrigger() == true)
-			{
-				if (currentPlayer->GetFriend() == true)
-				{
-					enemy->KillPlayer(currentPlayer);
-					return true;
-				}
-				else
-				{
-					return false;
-				}
-			}
-			else
-			{
-				enemy->KillPlayer(currentPlayer);
-				return true;
-			}
-		}
-	}
-
-	return false;
-}
-
-
-bool CommandManager::UseCommand(std::string& verb, std::string& noun, std::string& noun2)
+bool CommandManager::FourWordUseCommand(std::string& verb, std::string& noun, std::string& noun2, bool& invalidNoun)
 {
 	Item* foundItem = nullptr;
 
@@ -810,6 +723,105 @@ bool CommandManager::UseCommand(std::string& verb, std::string& noun, std::strin
 
 	return false;
 }
+
+bool CommandManager::PressCommand(std::string& noun, bool& invalidNoun)
+{
+	if (invalidNoun == true)
+	{
+		std::cout << "*There is nothing to press around*\n" << std::endl;
+		return false;
+	}
+	for (auto obstacle : obstaclesInArea)
+	{
+		if (obstacle->GetCommandName() == noun)
+		{
+			if (obstacle->Interact(noun) == true)
+			{
+
+				DatabaseManager::Instance().IncrementActions();
+
+				return true;
+			}
+			else
+			{
+				return false;
+			}
+		}
+		//done so you dont need to type PUZZLE as a noun for every button input on the puzzle.
+		else if (obstacle->GetCommandName() == "PUZZLE")
+		{
+			if (obstacle->Interact(noun) == true)
+			{
+
+				DatabaseManager::Instance().IncrementActions();
+
+				return true;
+			}
+			else
+			{
+				return false;
+			}
+		}
+	}
+	return false;
+}
+
+bool CommandManager::GrabFriendCommand(std::string& noun, bool& invalidNoun)
+{
+	if (invalidNoun == true)
+	{
+		std::cout << "*That is not your friend...*\n" << std::endl;
+		return false;
+	}
+
+	if (noun == "FRIEND")
+	{
+		if (currentFriend->GetFriendLocation() == currentPlayer->GetLocation())
+		{
+			if (CheckForEnemy() == true)
+			{
+				return false;
+			}
+			currentPlayer->SetFriend(true);
+			std::cout << "*You found your friend! Now you just need to get back to the mansion!*\n" << std::endl;
+			DatabaseManager::Instance().IncrementActions();
+
+			return true;
+		}
+	}
+	std::cout << "*That is not your friend...*\n" << std::endl;
+	return false;
+}
+
+bool CommandManager::CheckForEnemy()
+{
+	for (auto enemy : enemiesInArea)
+	{
+		if (enemy->GetAlive() == true)
+		{
+			if (enemy->GetFriendTrigger() == true)
+			{
+				if (currentPlayer->GetFriend() == true)
+				{
+					enemy->KillPlayer(currentPlayer);
+					return true;
+				}
+				else
+				{
+					return false;
+				}
+			}
+			else
+			{
+				enemy->KillPlayer(currentPlayer);
+				return true;
+			}
+		}
+	}
+
+	return false;
+}
+
 
 bool CommandManager::CheckForDoorAndBarrier(int& loc, std::string& dir)
 {
