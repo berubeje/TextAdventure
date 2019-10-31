@@ -17,17 +17,21 @@ bool FileManager::LoadFile(bool newGame)
 	
 	if (newGame)
 	{
-		loadedFile = "NewGameFile.json";
+		loadedFile = "../Assets/NewGameFile.json";
 	}
 	else
 	{
-		loadedFile = "LoadGameFile.json";
+		loadedFile = "../Assets/LoadGameFile.json";
 	}
 
 	try {
 		std::ifstream inputStream(loadedFile);
 
-		_ASSERT_EXPR(inputStream.good(), "File Not Found. Time to crash!");
+		if (inputStream.good() == false)
+		{
+			std::cout << "File not found. " << std::endl;
+			return false;
+		}
 
 		std::string str((std::istreambuf_iterator<char>(inputStream)), std::istreambuf_iterator<char>());
 
@@ -45,7 +49,7 @@ bool FileManager::LoadFile(bool newGame)
 		GameObjectManager::Instance().CreatePlayerAndFriendFromJSON(doc["PlayerInfo"], doc["Friend"]);
 		CommandManager::Instance().SetupCommandManager(GameObjectManager::Instance().GetObstacleArray(),GameObjectManager::Instance().GetItemArray(), GameObjectManager::Instance().GetEnemyArray());
 
-		DatabaseManager::Instance().Initialize("TextAdventureDatabase.db");
+		DatabaseManager::Instance().Initialize("../Assets/TextAdventureDatabase.db");
 
 		return true;
 	}
@@ -69,11 +73,11 @@ void FileManager::SaveFile()
 		std::vector<Enemy*> enemiesSave = GameObjectManager::Instance().GetEnemyArray();
 
 		//Create a copy of NewGameFile
-		if (loadedFile == "NewGameFile.json")
+		if (loadedFile == "../Assets/NewGameFile.json")
 		{
 			std::ifstream src(loadedFile);
-			std::ofstream dst("LoadGameFile.json");
-			loadedFile = "LoadGameFile.json";
+			std::ofstream dst("../Assets/LoadGameFile.json");
+			loadedFile = "../Assets/LoadGameFile.json";
 
 			dst << src.rdbuf();
 		}
@@ -139,7 +143,7 @@ void FileManager::SaveFile()
 
 		friendNode["FriendLocation"] = saveFriend->GetFriendLocation();
 
-		std::ofstream out("LoadGameFile.json");
+		std::ofstream out("../Assets/LoadGameFile.json");
 		out << doc.dump() << std::endl;
 
 		std::cout << "Saving Successful!\n" << std::endl;

@@ -56,6 +56,7 @@ bool Door::Interact(std::string& word)
 			else
 			{
 				std::cout << "The " + obstacleName + " is locked.\n" << std::endl;
+				return false;
 			}
 		}
 		else
@@ -116,6 +117,8 @@ bool Door::Interact(std::string& word)
 		std::cout << "You cannot do that with the " + obstacleName + ".\n" << std::endl;
 		return false;
 	}
+
+	return false;
 }
 
 void Door::Resolve()

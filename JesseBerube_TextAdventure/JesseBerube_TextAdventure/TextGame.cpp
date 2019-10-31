@@ -22,7 +22,7 @@ bool TextGame::Setup()
 		std::cin >> response;
 		response = toupper(response);
 	}
-	catch (int e)
+	catch (...)
 	{
 	}
 
@@ -37,7 +37,7 @@ bool TextGame::Setup()
 			std::cin >> response;
 			response = toupper(response);
 		}
-		catch (int e)
+		catch (...)
 		{
 		}
 	}
@@ -57,6 +57,8 @@ bool TextGame::Setup()
 			return false;
 		}
 	}
+	return true;
+
 }
 
 void TextGame::StartGame()

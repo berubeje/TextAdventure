@@ -4,6 +4,7 @@
 
 #include <iostream>
 #include "DatabaseManager.h"
+#include "GameObjectManager.h"
 
 Key::Key()
 {
@@ -48,6 +49,7 @@ void Key::UseItem(std::string verb, Obstacle* obstacle)
 
 			//Takes item out of them game world
 			locationId = -1;
+			(GameObjectManager::Instance().GetPlayer())->RemoveFromInventory(this);
 			DatabaseManager::Instance().IncrementActions();
 		}
 	}

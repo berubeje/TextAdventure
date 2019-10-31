@@ -2,7 +2,7 @@
   "Enemies" : [{
       "ClassName" : "Enemy",
       "CommandNoun" : "SKELETON",
-      "IsAlive" : false,
+      "IsAlive" : true,
       "IsAliveDescription" : "There is a skeleton blocking your path, readying for an attack!",
       "KilledDescription" : "The skeleton crumbles to dust from your attack!",
       "KilledPlayerDescription" : "The skeleton slashes at you and connects, ending your life where you stand.",
@@ -27,7 +27,7 @@
       "ClassName" : "Key",
       "CommandNoun" : "KEY",
       "DoorBarrierName" : "Closet Door",
-      "LocationId" : 0,
+      "LocationId" : -1,
       "Name" : "Bronze Key",
       "WorldInfo" : "There is a bronze key on the floor. Why is it here of all places?"
     }, {
@@ -41,27 +41,27 @@
       "ClassName" : "Key",
       "CommandNoun" : "TORCH",
       "DoorBarrierName" : "Dark",
-      "LocationId" : 0,
+      "LocationId" : 4,
       "Name" : "Torch",
       "WorldInfo" : "There is a torch on the shelf."
     }, {
       "ClassName" : "Weapon",
       "CommandNoun" : "SPEAR",
-      "LocationId" : 0,
+      "LocationId" : 15,
       "Name" : "Spear",
       "WorldInfo" : "There is a spear on the ground, with an inscription 'Its dangerous to go alone, take this."
     }, {
       "ClassName" : "Key",
       "CommandNoun" : "ROPE",
       "DoorBarrierName" : "Cliff",
-      "LocationId" : 0,
+      "LocationId" : 16,
       "Name" : "Rope",
       "WorldInfo" : "There is wrapped up rope in the tent. It looks strong!"
     }, {
       "ClassName" : "Key",
       "CommandNoun" : "BOMB",
       "DoorBarrierName" : "Rubble",
-      "LocationId" : 0,
+      "LocationId" : 16,
       "Name" : "Bomb",
       "WorldInfo" : "There is a bomb in the tent."
     }, {
@@ -380,7 +380,7 @@
       "IsPuzzle" : false,
       "LocationId" : 3,
       "Name" : "Closet Door",
-      "Open" : true,
+      "Open" : false,
       "OpenDescription" : "The closet door is open."
     }, {
       "BlockingDirection" : "WEST",
@@ -391,7 +391,7 @@
       "IsPuzzle" : false,
       "LocationId" : 10,
       "Name" : "Mysterious Door",
-      "Open" : true,
+      "Open" : false,
       "OpenDescription" : "The mysterious door is open."
     }, {
       "BlockingDirection" : "WEST",
@@ -402,7 +402,7 @@
       "IsPuzzle" : false,
       "LocationId" : 14,
       "Name" : "Cabin Door",
-      "Open" : true,
+      "Open" : false,
       "OpenDescription" : "The cabin door is open."
     }, {
       "BlockingDirection" : "NORTH",
@@ -413,7 +413,7 @@
       "IsPuzzle" : true,
       "LocationId" : 11,
       "Name" : "Puzzle Door",
-      "Open" : true,
+      "Open" : false,
       "OpenDescription" : "The Controller Door is open."
     }, {
       "BlockingDirection" : "SOUTH",
@@ -421,7 +421,7 @@
       "CommandNoun" : "DARK",
       "FatalDescription" : "You try to use the stairs in the dark, causing you to stumble on a rotting step and fall, causing head trauma.",
       "IsFatal" : true,
-      "IsSolved" : true,
+      "IsSolved" : false,
       "LocationId" : 8,
       "Name" : "Dark",
       "SolvedDescription" : "The torch illuminates the dark, allowing you to see!",
@@ -443,7 +443,7 @@
       "CommandNoun" : "RUBBLE",
       "FatalDescription" : "",
       "IsFatal" : false,
-      "IsSolved" : true,
+      "IsSolved" : false,
       "LocationId" : 18,
       "Name" : "Rubble",
       "SolvedDescription" : "The bomb explodes and clears the rubble, letting you pass!",
@@ -451,6 +451,6 @@
     }],
   "PlayerInfo" : {
     "HasFriend" : false,
-    "PlayerLocation" : 18
+    "PlayerLocation" : 3
   }
 }
