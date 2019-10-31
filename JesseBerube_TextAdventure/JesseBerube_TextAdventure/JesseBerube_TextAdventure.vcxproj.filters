@@ -25,21 +25,24 @@
     <Filter Include="Source Files\Managers">
       <UniqueIdentifier>{fdfe7637-1cfc-4515-acc3-6d9b52c23372}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Header Files\Location">
+      <UniqueIdentifier>{290fdf66-1867-473a-a19d-dafc4943ec58}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\Location">
+      <UniqueIdentifier>{feed0e5f-5d5a-4257-8678-49647a0fb2cc}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\JSON and SQL">
+      <UniqueIdentifier>{249a3f6b-3ffe-4b20-ac3b-34d4c1514a3f}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Header Files\JSON and SQL">
+      <UniqueIdentifier>{98280414-c1e7-4732-bb27-64391580e195}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="TextGame.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
     <ClCompile Include="main.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="json.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="Location.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="Direction.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
     <ClCompile Include="Barrier.cpp">
@@ -88,20 +91,20 @@
       <Filter>Source Files\Managers</Filter>
     </ClCompile>
     <ClCompile Include="sqlite3.c">
-      <Filter>Source Files</Filter>
+      <Filter>Source Files\JSON and SQL</Filter>
+    </ClCompile>
+    <ClCompile Include="Direction.cpp">
+      <Filter>Source Files\Location</Filter>
+    </ClCompile>
+    <ClCompile Include="Location.cpp">
+      <Filter>Source Files\Location</Filter>
+    </ClCompile>
+    <ClCompile Include="json.cpp">
+      <Filter>Source Files\JSON and SQL</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="TextGame.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="json.hpp">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="Location.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="Direction.h">
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="Barrier.h">
@@ -150,7 +153,16 @@
       <Filter>Header Files\Managers</Filter>
     </ClInclude>
     <ClInclude Include="sqlite3.h">
-      <Filter>Header Files</Filter>
+      <Filter>Header Files\JSON and SQL</Filter>
+    </ClInclude>
+    <ClInclude Include="Location.h">
+      <Filter>Header Files\Location</Filter>
+    </ClInclude>
+    <ClInclude Include="Direction.h">
+      <Filter>Header Files\Location</Filter>
+    </ClInclude>
+    <ClInclude Include="json.hpp">
+      <Filter>Header Files\JSON and SQL</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

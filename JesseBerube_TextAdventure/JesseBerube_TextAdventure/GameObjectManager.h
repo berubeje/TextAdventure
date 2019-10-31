@@ -47,35 +47,11 @@ public:
 	Player* GetPlayer() { return player; }
 	Friend* GetFriend() { return friendLocation; }
 
-	void Initialize() {};
+	//void Initialize() {};
 
 private:
-	inline explicit GameObjectManager()
-	{
-		player = new Player();
-		friendLocation = new Friend();
-	}
-
-	inline ~GameObjectManager()
-	{
-		for (auto ob : obstacleVector)
-		{
-			delete ob;
-		}
-
-		for (auto it : itemVector)
-		{
-			delete it;
-		}
-
-		for (auto enemy: enemyVector)
-		{
-			delete enemy;
-		}
-
-		delete player;
-		delete friendLocation;
-	}
+	GameObjectManager();
+	~GameObjectManager();
 
 	inline explicit GameObjectManager(GameObjectManager const&)
 	{

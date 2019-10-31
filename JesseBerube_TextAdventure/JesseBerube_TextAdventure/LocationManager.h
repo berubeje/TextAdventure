@@ -22,13 +22,7 @@ private:
 	{
 	}
 
-	inline ~LocationManager()
-	{
-		for (auto loc : locations)
-		{
-			delete loc;
-		}
-	}
+    ~LocationManager();
 
 	inline explicit LocationManager(LocationManager const&)
 	{

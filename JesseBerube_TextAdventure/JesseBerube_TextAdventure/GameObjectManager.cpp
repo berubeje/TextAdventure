@@ -11,9 +11,37 @@
 #include <map>
 
 
+GameObjectManager::GameObjectManager()
+{
+	player = new Player();
+	friendLocation = new Friend();
+}
+
+
+GameObjectManager::~GameObjectManager()
+{
+	for (auto ob : obstacleVector)
+	{
+		delete ob;
+	}
+
+	for (auto it : itemVector)
+	{
+		delete it;
+	}
+
+	for (auto enemy : enemyVector)
+	{
+		delete enemy;
+	}
+
+	delete player;
+	delete friendLocation;
+}
 
 void GameObjectManager::CreateInteractablesFromJSON(json::JSON& items, json::JSON& obstacle, json::JSON& enemies)
 {
+	//Using function pointers to load in items and obstacles
 	std::map < std::string, std::function<Obstacle* ()>> obstacleMap;
 	std::map < std::string, std::function<Item* ()>> itemMap;
 

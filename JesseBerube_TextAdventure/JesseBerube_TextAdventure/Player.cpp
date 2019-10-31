@@ -4,6 +4,9 @@
 
 Player::Player()
 {
+	hasFriend = false;
+	isDead = false;
+	location = -1;
 }
 
 Player::~Player()
@@ -33,6 +36,8 @@ void Player::SetupInventory()
 	inventory = GameObjectManager::Instance().GetItemsByLocationId(inventoryLocation);
 }
 
+//Kills the player, dropping all items but their weapon, as dropping their weapon when killed by an enemy will cause a loop of death
+//They are then sent back to location 1
 void Player::Die()
 {
 	isDead = true;

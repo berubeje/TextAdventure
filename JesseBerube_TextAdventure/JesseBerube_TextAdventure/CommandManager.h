@@ -16,7 +16,6 @@ class GameObjectManager;
 class CommandManager
 {
 private:
-	//std::map<std::string, std::string> moveCommands;
 	std::multimap<std::string, std::string> commands;
 
 	std::map<std::string, std::function<bool()>> oneWordCommands;
@@ -47,18 +46,14 @@ public:
 
 	void UpdateInteractablesInAreaList(int& id);
 	void SetupCommandManager(std::vector<Obstacle*>& obstacleVec, std::vector<Item*>& itemVec, std::vector<Enemy*>& enemyVec);
-	void ValidateAndExecuteCommand(std::string com);
+	void ValidateAndExecuteCommand(std::string& com);
 	
 	bool LookCommand();
 
 
 
 private:
-	inline explicit CommandManager()
-	{
-		currentPlayer = nullptr;
-		currentFriend = nullptr;
-	}
+	CommandManager();
 
 	inline ~CommandManager()
 	{

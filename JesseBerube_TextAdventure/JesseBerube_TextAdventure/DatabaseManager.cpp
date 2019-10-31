@@ -78,6 +78,7 @@ bool DatabaseManager::WriteToDatabase()
 		int result;
 		sqlite3_stmt* stmt;
 
+		//If there is a record inside the database, update it, else create new record
 		if (noRecords == false)
 		{
 			result = sqlite3_prepare_v2(db, "UPDATE PlayerInfo SET TotalActions = ?, TotalItemPickups = ?, TotalTimesPlayed = ?, TotalDeaths = ?", -1, &stmt, 0);

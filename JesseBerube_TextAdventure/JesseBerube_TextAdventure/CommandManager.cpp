@@ -11,7 +11,11 @@
 #include "TextGame.h"
 #include "DatabaseManager.h"
 
-
+CommandManager::CommandManager()
+{
+	currentPlayer = nullptr;
+	currentFriend = nullptr;
+}
 
 void CommandManager::UpdateInteractablesInAreaList(int& id)
 {
@@ -48,6 +52,7 @@ void CommandManager::SetupCommandManager(std::vector<Obstacle*>& obstacleVec, st
 	commands.emplace("GRAB", "*Grab what?*");
 	commands.emplace("GRAB", "FRIEND");
 
+	commands.emplace("PRESS", "*Press What?*");
 	commands.emplace("PRESS", "UP");
 	commands.emplace("PRESS", "DOWN");
 	commands.emplace("PRESS", "LEFT");
@@ -169,7 +174,7 @@ void CommandManager::SetupCommandManager(std::vector<Obstacle*>& obstacleVec, st
 	UpdateInteractablesInAreaList(currentPlayer->GetLocation());
 }
 
-void CommandManager::ValidateAndExecuteCommand(std::string com)
+void CommandManager::ValidateAndExecuteCommand(std::string& com)
 {
 
 
@@ -236,6 +241,7 @@ bool CommandManager::OneWordCommand(std::string& com)
 
 }
 
+//Used to seperate the verb and the noun for execution
 bool CommandManager::TwoWordCommand(std::string& com)
 {
 	bool validVerb = false;
@@ -281,6 +287,7 @@ bool CommandManager::TwoWordCommand(std::string& com)
 	}
 }
 
+//Seperate all the words and put them in their proper place
 bool CommandManager::FourWordCommand(std::string& com)
 {
 	bool validVerb = false;
@@ -324,6 +331,7 @@ bool CommandManager::FourWordCommand(std::string& com)
 		}
 	}
 
+
 	for (auto comMap : commands)
 	{
 		if (comMap.first == verb && comMap.second == noun)
@@ -362,6 +370,7 @@ bool CommandManager::FourWordCommand(std::string& com)
 	}
 }
 
+//Using the function pointers and parameters to execute the commands
 bool CommandManager::ExecuteCommand(std::string& verb)
 {
 	if (oneWordCommands.find(verb) != oneWordCommands.end())
@@ -385,7 +394,7 @@ bool CommandManager::ExecuteCommand(std::string& verb, std::string& noun, bool& 
 	{
 		return twoWordCommands[verb](noun, invalidNoun);
 	}
-
+	std::cout << "*You cannot do that!*\n" << std::endl;
 	return false;
 }
 
@@ -399,9 +408,11 @@ bool CommandManager::ExecuteCommand(std::string& verb, std::string& noun, std::s
 	{
 		return fourWordCommands[verb](noun, noun2, invalidNoun);
 	}
+	std::cout << "*You cannot do that!*\n" << std::endl;
 	return false;
 }
 
+//Look command gets the description of the location, then all the game objects in the location
 bool CommandManager::LookCommand()
 {
 	int currentLocation = currentPlayer->GetLocation();
@@ -463,10 +474,11 @@ bool CommandManager::ShowInventoryCommand()
 		output = "Inventory is empty\n";
 	}
 
-	std::cout << output;
+	std::cout << output << std::endl;
 	return true;
 }
 
+//The move command uses current location to get the direction from it, then checks if there are obstacles or enemies. If there is not, move
 bool CommandManager::MoveCommand(std::string& dir, bool& invalidDir)
 {
 	if (invalidDir == true)
@@ -531,6 +543,7 @@ bool CommandManager::MoveCommand(std::string& dir, bool& invalidDir)
 	}
 }
 
+//Used to verb to see if it should open or close the door
 bool CommandManager::OpenCloseCommand(std::string& verb, std::string& noun, bool& invalidNoun)
 {
 
@@ -563,6 +576,7 @@ bool CommandManager::OpenCloseCommand(std::string& verb, std::string& noun, bool
 	return false;
 }
 
+//Checks if the item is in the area, if it is, pick it up
 bool CommandManager::PickupCommand(std::string& noun, bool& invalidNoun)
 {
 	if (invalidNoun == true)
@@ -592,6 +606,7 @@ bool CommandManager::PickupCommand(std::string& noun, bool& invalidNoun)
 	return false;
 }
 
+//Check to see if the item is in the player's inventory. If it is, drop it
 bool CommandManager::DropCommand(std::string& noun, bool& invalidNoun)
 {
 	if (invalidNoun == true)
@@ -621,6 +636,7 @@ bool CommandManager::DropCommand(std::string& noun, bool& invalidNoun)
 	return false;
 }
 
+//Uses the verb to attempt to use the item if the player has it
 bool CommandManager::TwoWordUseCommand(std::string& verb, std::string& noun, bool& invalidNoun)
 {
 	if (invalidNoun == true)
@@ -645,6 +661,8 @@ bool CommandManager::TwoWordUseCommand(std::string& verb, std::string& noun, boo
 	return false;
 }
 
+//Uses the verb to attempt to use the item if the player has it
+//After the item is found, it then needs to find what the item will be used on
 bool CommandManager::FourWordUseCommand(std::string& verb, std::string& noun, std::string& noun2, bool& invalidNoun)
 {
 	Item* foundItem = nullptr;
@@ -724,6 +742,7 @@ bool CommandManager::FourWordUseCommand(std::string& verb, std::string& noun, st
 	return false;
 }
 
+//Press command is currently just used for the puzzle, but could be used for other things if added to the game
 bool CommandManager::PressCommand(std::string& noun, bool& invalidNoun)
 {
 	if (invalidNoun == true)
@@ -763,6 +782,7 @@ bool CommandManager::PressCommand(std::string& noun, bool& invalidNoun)
 			}
 		}
 	}
+	std::cout << "*There is nothing to press around*\n" << std::endl;
 	return false;
 }
 
@@ -793,6 +813,8 @@ bool CommandManager::GrabFriendCommand(std::string& noun, bool& invalidNoun)
 	return false;
 }
 
+//Used before everything I consider an action (is checked after using ATTACK)
+//If an enemy is found, they kill the player
 bool CommandManager::CheckForEnemy()
 {
 	for (auto enemy : enemiesInArea)
@@ -822,7 +844,7 @@ bool CommandManager::CheckForEnemy()
 	return false;
 }
 
-
+//Check for doors and barriers when moving. If a door or barrier is found, they stop the player. If the barrier is fatal, it kills the player
 bool CommandManager::CheckForDoorAndBarrier(int& loc, std::string& dir)
 {
 	for (auto obstacle : obstaclesInArea)

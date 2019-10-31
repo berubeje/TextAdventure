@@ -42,6 +42,7 @@ std::string Door::GetDescription()
 
 bool Door::Interact(std::string& word)
 {
+	//Open the door if its closed
 	if (word == "OPEN")
 	{
 		if (open == false)
@@ -63,6 +64,7 @@ bool Door::Interact(std::string& word)
 			return false;
 		}
 	}
+	//close the door if its open
 	else if (word == "CLOSE")
 	{
 		if (open == true)
@@ -77,6 +79,8 @@ bool Door::Interact(std::string& word)
 			return false;
 		}
 	}
+	//This uses a counter to check what position of the vector the player is currently in.
+	//If the input does not match where the player is in the puzzle, the counter resets to 0
 	else if (isPuzzle == true && isLocked == true && (word == "UP" || word == "DOWN" || word == "LEFT" || word == "RIGHT" || word == "B" || word == "A" || word == "START" || word == "SELECT"))
 	{
 		for (auto puz : puzzleCombo)
@@ -86,6 +90,7 @@ bool Door::Interact(std::string& word)
 				partOfPuzzle++;
 				std::cout << "DING! Correct input!\n" << std::endl;
 
+				//Puzzle is complete. Open the door
 				if (puzzleCombo.size() < partOfPuzzle)
 				{
 					isLocked = false;
@@ -121,7 +126,7 @@ void Door::Resolve()
 
 void Door::Initialize(json::JSON& node)
 {
-	//Interactables
+	//Obstacle
 	obstacleName = node["Name"].ToString();
 	locationId = node["LocationId"].ToInt();
 	commandNoun = node["CommandNoun"].ToString();
@@ -136,6 +141,7 @@ void Door::Initialize(json::JSON& node)
 	isLocked = node["IsLocked"].ToBool();
 	isPuzzle = node["IsPuzzle"].ToBool();
 
+	//The puzzle solution is hardcoded in, but not the door its attached to 
 	if (isPuzzle)
 	{
 		partOfPuzzle = 1;

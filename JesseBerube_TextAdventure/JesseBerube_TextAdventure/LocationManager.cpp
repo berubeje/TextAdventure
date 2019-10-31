@@ -2,6 +2,14 @@
 #include "Location.h"
 
 
+LocationManager::~LocationManager()
+{
+	for (auto loc : locations)
+	{
+		delete loc;
+	}
+}
+
 void LocationManager::CreateLocationsFromJSON(json::JSON& node)
 {
 	for (auto loc:node.ArrayRange())

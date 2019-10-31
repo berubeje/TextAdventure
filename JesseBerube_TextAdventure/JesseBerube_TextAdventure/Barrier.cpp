@@ -55,7 +55,7 @@ void Barrier::Resolve()
 
 void Barrier::Initialize(json::JSON& node)
 {
-	//Interactables
+	//Obstacle
 	obstacleName = node["Name"].ToString();
 	locationId = node["LocationId"].ToInt();
 	commandNoun = node["CommandNoun"].ToString();

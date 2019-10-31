@@ -56,6 +56,8 @@ bool FileManager::LoadFile(bool newGame)
 	}
 }
 
+//Saving the file creates a copy of the newgamefile if it is being, then writes the necessary changes to the file
+//If the game was loaded in using previously saved data, it just uses the loaded file
 void FileManager::SaveFile()
 {
 	try
@@ -66,6 +68,7 @@ void FileManager::SaveFile()
 		std::vector<Item*> itemsSave = GameObjectManager::Instance().GetItemArray();
 		std::vector<Enemy*> enemiesSave = GameObjectManager::Instance().GetEnemyArray();
 
+		//Create a copy of NewGameFile
 		if (loadedFile == "NewGameFile.json")
 		{
 			std::ifstream src(loadedFile);
